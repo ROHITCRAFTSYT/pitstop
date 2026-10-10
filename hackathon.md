@@ -11,7 +11,7 @@
 ## Stack
 - Python 3.12, OpenAI SDK against the hackathon LiteLLM proxy (`claude-haiku`, `claude-sonnet-4.6`)
 - neatlogs SDK (`wrap`, `span`, `log`, `identify`) + `neatlogs-cli` 0.2.0 for trace read-back
-- Entire CLI 0.11.4 (Claude Code hooks, checkpoints)
+- Entire CLI 0.11.4 (Claude Code hooks, checkpoints) + entire-graph 0.4.0 (code localisation inside Pitstop)
 - Crustdata (Scout's live data source)
 - cfo.ai (business plan)
 
@@ -32,10 +32,14 @@
 - Bug found from the first traced run: every Scout trace id was `None`. neatlogs runs its tracer provider in isolated mode, so the OTel global current span isn't the neatlogs span. Fixed by resolving the span through neatlogs' active context.
 - Switched trace read-back from `neatlogs-cli` (needs OAuth) to the trace API with the project key, the same path the doctor probe uses. Pitstop now gets spans, errors, tokens and neatlogs detections per failing task. First read-back of the `notion` task showed exactly the URL fault: two `company_lookup` spans with `NotFound ... 'https://www.notion.so/'`, then a `JSONDecodeError` on `scout.research`.
 
+- `entire login` done; checkpoint `01M4KBB7SNC5AY5QCBG39ZXGMS` is publicly viewable on entire.io.
+- Installed Entire Graph (`entire plugin install graph`, v0.4.0) and ran `entire graph init-agents` (AGENTS.md, CLAUDE.md, .entire/graph-agent.md).
+- Added Entire Graph to Pitstop itself: a localize step turns each failure signal into an `entire graph search` and keeps only hits in editable files. On the offline baseline it points at `scout/agent.py:43` (the bare `json.loads`) and `scout/tools.py` `company_lookup` (the NotFound errors). The first attempt queried with raw eval failure text and every top hit was in the read-only eval harness, so queries now come from trace signals instead.
+
 ### Pending
 - [ ] LiteLLM key (team leader verifies check-in email) → first real run on `claude-haiku`
 - [x] neatlogs project + API key → traces in the dashboard, read-back working
-- [ ] `entire login` + GitHub App on the repo → checkpoint link + ID
+- [x] `entire login` → checkpoint link + ID (https://entire.io/gh/ROHITCRAFTSYT/pitstop/commit/7e08edba996ee741b17848e3abad7e534df54c5c)
 - [ ] cfo.ai business plan
 - [ ] Before/after trace pair and a failure-recovery trace for the submission
 - [ ] Demo video, #neatHack posts

@@ -86,6 +86,9 @@ class Narrator:
             console.print(f"  [yellow]{h.get('id')}[/] {h.get('title')} [dim](confidence {h.get('confidence')})[/]")
             console.print(f"     [dim]{h.get('root_cause', '')[:220]}[/]")
 
+    def on_localized(self, round, searches):
+        console.print(f"  [dim]Entire Graph: localized failures to candidate fix sites ({searches} searches so far)[/]")
+
     def on_attempt_start(self, attempt):
         console.print(f"[bold]trying:[/] {attempt['title']}")
 
@@ -144,6 +147,7 @@ def cmd_eval(args) -> int:
 
 def cmd_heal(args) -> int:
     from pitstop.evidence import NeatlogsTraces
+    from pitstop.graph import EntireGraph
     from pitstop.heal import heal
     from pitstop.llm import LLM, Ledger
     from pitstop.report import write
@@ -158,12 +162,14 @@ def cmd_heal(args) -> int:
     ledger = Ledger(budget_usd=args.budget)
     llm = LLM(args.pitstop_model, ledger)
     traces = NeatlogsTraces()
+    graph = EntireGraph(target.root, target.editable)
     console.print(
         f"neatlogs export: {'on' if traced else 'off'} · trace read-back: {'on' if traces.enabled else 'off (local telemetry)'} · "
-        f"budget ${args.budget:.2f}"
+        f"Entire Graph: {'on' if graph.enabled else 'off'} · budget ${args.budget:.2f}"
     )
-    run = heal(target, llm, max_rounds=args.rounds, tries_per_round=args.tries, traces=traces if traces.enabled else None, emit=Narrator())
-    report = write(run, ledger, pathlib.Path(args.reports), traces.reads)
+    run = heal(target, llm, max_rounds=args.rounds, tries_per_round=args.tries, traces=traces if traces.enabled else None,
+               graph=graph if graph.enabled else None, emit=Narrator())
+    report = write(run, ledger, pathlib.Path(args.reports), traces.reads, graph.searches)
     console.print(f"report: {report}")
     if traced:
         import neatlogs
@@ -171,7 +177,7 @@ def cmd_heal(args) -> int:
         neatlogs.flush()
     if traces.failures:
         console.print(f"[yellow]{len(traces.failures)} neatlogs trace reads failed[/]; first: {traces.failures[0]}")
-    console.print(f"neatlogs traces read back: {traces.reads} · detections seen: {traces.detections}")
+    console.print(f"neatlogs traces read back: {traces.reads} · detections seen: {traces.detections} · Entire Graph searches: {graph.searches}")
     return 0
 
 

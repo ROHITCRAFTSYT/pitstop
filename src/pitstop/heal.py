@@ -11,6 +11,7 @@ import neatlogs
 
 from pitstop import evidence as evidence_mod
 from pitstop.crew import diagnose, propose_patch
+from pitstop.graph import EntireGraph
 from pitstop.llm import LLM, BudgetExceeded
 from pitstop.target import EditError, Target
 
@@ -96,6 +97,7 @@ def heal(
     max_rounds: int = 4,
     tries_per_round: int = 2,
     traces: evidence_mod.NeatlogsTraces | None = None,
+    graph: EntireGraph | None = None,
     emit: Emit = _noop,
     run_id: str | None = None,
 ) -> HealRun:
@@ -113,6 +115,10 @@ def heal(
                 break
             emit("diagnose_start", round=round_no)
             evidence = evidence_mod.build(current, traces)
+            sites = graph.localize(current) if graph else None
+            if sites:
+                evidence += "\n\n# candidate fix sites (Entire Graph)\n" + sites
+                emit("localized", round=round_no, searches=graph.searches)
             hypotheses = diagnose(llm, target, evidence, run.attempts)
             emit("diagnosed", round=round_no, hypotheses=hypotheses)
             improved = False

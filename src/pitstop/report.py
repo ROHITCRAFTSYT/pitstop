@@ -16,7 +16,7 @@ def _pct(before: float, after: float) -> str:
     return f" ({change:+.0%})"
 
 
-def markdown(run: HealRun, ledger: Ledger, traces_used: int = 0) -> str:
+def markdown(run: HealRun, ledger: Ledger, traces_used: int = 0, graph_searches: int = 0) -> str:
     b, f = run.baseline["summary"], run.final["summary"]
     accepted = [a for a in run.attempts if a["outcome"] == "accepted"]
     rejected = [a for a in run.attempts if a["outcome"] != "accepted"]
@@ -27,7 +27,7 @@ def markdown(run: HealRun, ledger: Ledger, traces_used: int = 0) -> str:
         f"- Model under test: `{b['model']}` · data: `{b['data']}`",
         f"- Stopped because: {run.stopped}",
         f"- Pitstop's own spend: ${ledger.spent_usd:.4f} over {ledger.calls} model calls ({ledger.tokens} tokens)",
-        f"- neatlogs trace reads: {traces_used}",
+        f"- neatlogs trace reads: {traces_used} · Entire Graph searches: {graph_searches}",
         "",
         "## Before → after",
         "",
@@ -73,10 +73,10 @@ def markdown(run: HealRun, ledger: Ledger, traces_used: int = 0) -> str:
     return "\n".join(lines) + "\n"
 
 
-def write(run: HealRun, ledger: Ledger, out_dir: pathlib.Path, traces_used: int = 0) -> pathlib.Path:
+def write(run: HealRun, ledger: Ledger, out_dir: pathlib.Path, traces_used: int = 0, graph_searches: int = 0) -> pathlib.Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     md = out_dir / f"pitstop-{run.run_id}.md"
-    md.write_text(markdown(run, ledger, traces_used), encoding="utf-8")
+    md.write_text(markdown(run, ledger, traces_used, graph_searches), encoding="utf-8")
     payload = {
         "run_id": run.run_id, "target": run.target, "branch": run.branch, "stopped": run.stopped,
         "baseline": run.baseline["summary"], "final": run.final["summary"], "evals": run.evals,

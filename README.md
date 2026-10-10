@@ -25,7 +25,8 @@ pitstop heal --target sandbox/scout
 ```
             ┌──────────── evals (pitstop.toml: eval_cmd) ─────────────┐
             ▼                                                          │
-  target agent ──traces──▶ neatlogs ──trace API──▶ evidence ──▶ DIAGNOSE (claude-sonnet-4.6)
+  target agent ──traces──▶ neatlogs ──trace API──▶ evidence ─┬▶ DIAGNOSE (claude-sonnet-4.6)
+  target repo ──entire graph search──▶ candidate fix sites ───┘
                                                                        │ ranked root-cause hypotheses
                                                                        ▼
             keep + commit ◀── ACCEPT ◀── compare ◀── evals ◀── tests ◀── PATCH (search/replace edits)
@@ -38,16 +39,19 @@ pitstop heal --target sandbox/scout
 2. **Collect evidence.** For each failing task: failed checks, a step-by-step
    timeline (tool calls, arguments, result sizes, errors, tokens per step) and
    the neatlogs spans and detections for that task's trace, read back through the neatlogs trace API.
-3. **Diagnose.** The model returns ranked hypotheses, each citing evidence
+3. **Localize.** Each failure signal (an exception, a failing tool call, an
+   oversized tool result, an invented value) becomes an `entire graph search`
+   over the target repo. Only hits in editable files are kept, as candidate fix sites.
+4. **Diagnose.** The model returns ranked hypotheses, each citing evidence
    (task, step, failure text), and sees every earlier attempt and why it was rejected.
-4. **Patch.** Minimal search/replace edits, limited to files the target marks
+5. **Patch.** Minimal search/replace edits, limited to files the target marks
    `editable`. Evals and data are read-only, so the agent can't game its own tests.
    If an edit doesn't apply or the unit tests fail, the error goes back to the
    model for one repair attempt.
-5. **Verify.** Re-run the evals. Accept only if more tasks pass, or more checks
+6. **Verify.** Re-run the evals. Accept only if more tasks pass, or more checks
    pass, or results stay equal with ≥10% fewer tokens, and no passing task
    regresses. Otherwise revert.
-6. **Report.** A markdown + JSON report with the before/after table, every
+7. **Report.** A markdown + JSON report with the before/after table, every
    accepted diff, every rejected attempt and why, and all trace ids.
 
 Pitstop has a hard USD budget (`--budget`) for its own model calls and stops
@@ -100,7 +104,7 @@ Your eval command must write JSON with a `summary` (`tasks`, `passed`,
 | Tool | How Pitstop uses it |
 |---|---|
 | **neatlogs** | Every Scout run and every Pitstop step is traced (`neatlogs.wrap`, `@neatlogs.span`, `neatlogs.log`). Pitstop reads each failing trace back through the neatlogs trace API (project key: spans, errors, tokens and neatlogs' own detections) as diagnosis evidence. Before/after trace ids go in each commit and report. |
-| **Entire** | The repo is Entire-enabled for Claude Code; build sessions are captured as checkpoints linked to commits. |
+| **Entire** | Inside the agent: Pitstop uses Entire Graph (`entire graph search`) to localize each failure to candidate fix sites before diagnosing. Building the agent: the repo is Entire-enabled for Claude Code (sessions captured as checkpoints linked to commits) and Graph-enabled (`AGENTS.md`/`CLAUDE.md` point coding agents at `entire graph search`). |
 | **cfo.ai** | Pricing, costs, revenue and runway plan for Pitstop as a product: [`docs/business-plan.md`](docs/business-plan.md). |
 | **Crustdata** | Scout's live data source (`SCOUT_DATA=live`). |
 | **LiteLLM (hackathon proxy)** | All model calls: `claude-haiku` for Scout, `claude-sonnet-4.6` for Pitstop. |
