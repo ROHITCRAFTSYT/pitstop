@@ -43,11 +43,16 @@
 - Round 1 shows why the accept rule counts checks rather than tasks. Fixing the fence made tokens go *up* (58,879 → 84,935), because the parsed briefs now exposed the people bloat, and still 0 tasks passed. Checks went 4 → 23, so it was kept; round 2 then cut the bloat.
 - Evidence the diagnosis cited came straight from neatlogs read-back: `agent_action scout.research status=ERROR error=json.decoder.JSONDecodeError` on all tasks.
 
+### 2026-10-10 (Sat), ~11:45 PM IST: Pitstop learns from rejections; cfo.ai plan
+- Run 3 (nova-pro as the fixer): 4 rejected patches, all reverted, plus 1 accepted fix (-22% tokens). Its traces showed Pitstop repeating the *same* rejected JSON patch four rounds running, because rejected attempts were summarised by title only.
+- Fix: diagnose/patch now see rejected diffs and the failures that remained, and an identical re-proposal is reverted without re-running evals. Run 4 (same setup): the guard fired 3 times and skipped those eval re-runs, but nova-pro still couldn't solve the fence bug (its patches produced invalid Python, which was rejected safely). Conclusion: fixer quality matters; Sonnet solved it first try in run 1. neatlogs detections started appearing (22 in run 4).
+- cfo.ai: Ari built a 4-page model plus 12 scenarios (docs/business-plan.md). Base case: $47k 12-month revenue, cash out in month 3, $28.5k bridge needed; Team at $29 is contribution-negative; $79 breaks even within the year. Ari's top risk, the true cost of one pit stop including failed patches, is something Pitstop's ledger already measures ($0.04–$0.21 in real runs).
+
 ### Pending
 - [x] LiteLLM key → first real run on `claude-haiku` (0/6 → 6/6)
 - [x] neatlogs project + API key → traces in the dashboard, read-back working
 - [x] `entire login` → checkpoint link + ID (https://entire.io/gh/ROHITCRAFTSYT/pitstop/commit/7e08edba996ee741b17848e3abad7e534df54c5c)
-- [ ] cfo.ai business plan
+- [x] cfo.ai business plan (docs/business-plan.md); public share link pending approval
 - [x] Before/after trace pair (baseline `4f00c2ed…` vs final `3a6ac2bc…`, stripe task)
 - [ ] A real failure-recovery trace (rejected or repaired patch on a real model)
 - [ ] Demo video, #neatHack posts

@@ -110,7 +110,7 @@ Your eval command must write JSON with a `summary` (`tasks`, `passed`,
 |---|---|
 | **neatlogs** | Every Scout run and every Pitstop step is traced (`neatlogs.wrap`, `@neatlogs.span`, `neatlogs.log`). Pitstop reads each failing trace back through the neatlogs trace API (project key: spans, errors, tokens and neatlogs' own detections) as diagnosis evidence. Before/after trace ids go in each commit and report. |
 | **Entire** | Inside the agent: Pitstop uses Entire Graph (`entire graph search`) to localize each failure to candidate fix sites before diagnosing. Building the agent: the repo is Entire-enabled for Claude Code (sessions captured as checkpoints linked to commits) and Graph-enabled (`AGENTS.md`/`CLAUDE.md` point coding agents at `entire graph search`). |
-| **cfo.ai** | Pricing, costs, revenue and runway plan for Pitstop as a product: [`docs/business-plan.md`](docs/business-plan.md). |
+| **cfo.ai** | Ari (cfo.ai's AI CFO) built Pitstop's 12-month model: pricing, unit economics, forecast, burn, runway and 12 sensitivity scenarios. Headline: $10k runs out in month 3, ~$28.5k bridge needed at $49; don't price Team at $29; $79 breaks even within the year. [`docs/business-plan.md`](docs/business-plan.md) |
 | **Crustdata** | Scout's live data source (`SCOUT_DATA=live`). |
 | **LiteLLM (hackathon proxy)** | All model calls: `claude-haiku` for Scout, `claude-sonnet-4.6` for Pitstop. |
 
