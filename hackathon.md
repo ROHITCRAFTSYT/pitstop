@@ -36,12 +36,20 @@
 - Installed Entire Graph (`entire plugin install graph`, v0.4.0) and ran `entire graph init-agents` (AGENTS.md, CLAUDE.md, .entire/graph-agent.md).
 - Added Entire Graph to Pitstop itself: a localize step turns each failure signal into an `entire graph search` and keeps only hits in editable files. On the offline baseline it points at `scout/agent.py:43` (the bare `json.loads`) and `scout/tools.py` `company_lookup` (the NotFound errors). The first attempt queried with raw eval failure text and every top hit was in the read-only eval harness, so queries now come from trace signals instead.
 
+### 2026-10-10 (Sat), ~11:20 PM IST: first real run
+- Got the team LiteLLM key (verified via the models page form), and ran `pitstop doctor --ping` successfully.
+- Real baseline, Scout on `claude-haiku`: 0/6 pass, 58,879 tokens, $0.0697. It differs from the scripted run: Haiku normalises URLs itself, so that seeded fault never fires. The fence and bloat faults do.
+- Real pit stop `1010-2320-db0d` (Pitstop on `claude-sonnet-4.6`, budget $1.50): **0/6 → 6/6, 58,879 → 16,302 tokens (-72%), $0.0697 → $0.0251 per eval run**, in 3 rounds with 3 accepted fixes and no rejections. Pitstop's own spend: $0.2122 over 7 calls. neatlogs trace reads: 9. Entire Graph searches: 7. Report: `reports/pitstop-1010-2320-db0d.md`.
+- Round 1 shows why the accept rule counts checks rather than tasks. Fixing the fence made tokens go *up* (58,879 → 84,935), because the parsed briefs now exposed the people bloat, and still 0 tasks passed. Checks went 4 → 23, so it was kept; round 2 then cut the bloat.
+- Evidence the diagnosis cited came straight from neatlogs read-back: `agent_action scout.research status=ERROR error=json.decoder.JSONDecodeError` on all tasks.
+
 ### Pending
-- [ ] LiteLLM key (team leader verifies check-in email) → first real run on `claude-haiku`
+- [x] LiteLLM key → first real run on `claude-haiku` (0/6 → 6/6)
 - [x] neatlogs project + API key → traces in the dashboard, read-back working
 - [x] `entire login` → checkpoint link + ID (https://entire.io/gh/ROHITCRAFTSYT/pitstop/commit/7e08edba996ee741b17848e3abad7e534df54c5c)
 - [ ] cfo.ai business plan
-- [ ] Before/after trace pair and a failure-recovery trace for the submission
+- [x] Before/after trace pair (baseline `4f00c2ed…` vs final `3a6ac2bc…`, stripe task)
+- [ ] A real failure-recovery trace (rejected or repaired patch on a real model)
 - [ ] Demo video, #neatHack posts
 
 ## Demo

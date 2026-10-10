@@ -8,17 +8,22 @@ metrics and trace ids. Patches that don't help are reverted.
 
 Built for [neatHack](https://neatlogs.com/hackathon) (Oct 10–12, 2026) by team **4'feetus**.
 
-```
-pitstop heal --target sandbox/scout
+**First real run** ([report](reports/pitstop-1010-2320-db0d.md)): Scout on `claude-haiku`, Pitstop on `claude-sonnet-4.6`, via the hackathon LiteLLM proxy.
 
- baseline   0/6 pass · 35,672 tokens · 6 tool errors
- round 1    "final answer is fenced JSON, json.loads fails"       first edit didn't apply → repaired → ACCEPTED (+17 checks)
- round 2    "URLs passed to lookups without normalising"          ACCEPTED (+3 checks; tokens rise to 63,203 as more runs reach people_search)
- round 3    "people_search dumps full profiles into context"      tried to edit the evals → blocked → repaired → ACCEPTED (0 → 5 pass)
- round 4    "prompt forces the model to invent missing numbers"   ACCEPTED (5 → 6 pass)
- final      6/6 pass · 10,138 tokens (-72%) · 0 tool errors
-```
-*(Offline run with scripted models, from `tests/test_heal_offline.py`. Real runs use the hackathon LiteLLM models and are linked in [`reports/`](reports/).)*
+| | before | after |
+|---|---|---|
+| tasks passing | 0/6 | **6/6** |
+| tokens (6 tasks) | 58,879 | **16,302 (-72%)** |
+| est. cost per eval run | $0.0697 | **$0.0251 (-64%)** |
+| avg latency | 4.6 s | 3.2 s |
+
+Three rounds, three accepted fixes, each its own commit with the evidence that justified it:
+
+1. **Fenced JSON.** Every neatlogs trace ended in `scout.research status=ERROR JSONDecodeError`; the timelines showed answers starting with a markdown code fence. Pitstop stripped fences before parsing (+19 checks).
+2. **Context bloat.** `people_search` returned ~50k chars of full profiles into context. Pitstop trimmed it to name/title (0 → 5 tasks pass).
+3. **Invented numbers.** The prompt said "never leave a field null", so the model filled zerodha.com's missing funding with 0. Pitstop allowed null for unknown values (5 → 6).
+
+Pitstop spent $0.21 (7 model calls), read 9 neatlogs traces back and ran 7 Entire Graph searches.
 
 ## How it works
 
