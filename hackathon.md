@@ -55,6 +55,7 @@
 | Before/after pair (stripe task) | neatlogs traces `4f00c2edd726bf2405756cc32fd5bff8` → `3a6ac2bcdd16692d88b7e3755144d09b`; [report](reports/pitstop-1010-2320-db0d.md) |
 | Failure recovery | [reports/pitstop-1010-2326-c7f5.md](reports/pitstop-1010-2326-c7f5.md): 4 rejected patches reverted; [reports/pitstop-1010-2333-e12a.md](reports/pitstop-1010-2333-e12a.md): duplicate-patch guard |
 | Entire checkpoint | `01M4KBB7SNC5AY5QCBG39ZXGMS`: https://entire.io/gh/ROHITCRAFTSYT/pitstop/commit/7e08edba996ee741b17848e3abad7e534df54c5c |
+| Building in public (#neatHack) | https://x.com/6easap/status/2108990075061284936 |
 | cfo.ai plan | https://cfo.ai/s/W2RB_otvpzPIaBn6 · [docs/business-plan.md](docs/business-plan.md) |
 
 ## Demo
