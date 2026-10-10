@@ -1,0 +1,69 @@
+<pasted_content id="c06a">
+Hi Rohit Madhavan,
+
+Your team 4'feetus has completed web check-in. You’re ready to build!
+
+As team leader, you receive the setup and credits instructions for your team. Credits are allocated once per team, not per member.
+
+Join the neatHack Discord
+Join our Discord for event announcements, help with setup and credits, and support from organisers and mentors.
+
+https://neatlogs.com/discord
+
+1. Build with neatlogs — free throughout the hackathon
+All neatlogs paid plans are available to you for free for the duration of neatHack. We believe no good idea should be held back by a paywall.
+
+Sign up at https://app.neatlogs.com and create your project.
+
+Start with our step-by-step setup guide, with screenshots, a ready-to-use coding-agent prompt, and troubleshooting: https://neatlogs.com/hackathon/neatlogs-setup-guide.html
+
+For framework-specific instructions, see https://docs.neatlogs.com.
+
+Run your agent and verify that its traces appear in the dashboard. Use those traces to investigate failures and verify your fixes.
+
+2. Set up Entire
+Follow the Entire guide for neatHack: https://hack.entire.io/neathacks-2026/
+
+Connect your GitHub repository, install the CLI, and capture your first checkpoint.
+
+Explore Trails and optional Graph/Brain features. Include an accessible checkpoint link and ID in your submission.
+
+3. Access cfo.ai paid plans for free
+Use the dedicated neatHack signup link to access any cfo.ai paid plan for free: https://cfo.ai/neathacks
+
+A card is required during signup. Immediately after signing up, cancel your subscription in Settings → Billing. You won’t be billed if you cancel immediately.
+
+The neatHack team will provide your cfo.ai credits directly.
+
+Use cfo.ai to plan your agent’s pricing, costs, revenue, and runway. Include the resulting business plan in your submission.
+
+4. Claim your Crustdata credits
+Get 5,000 Crustdata credits to build with company and people data.
+
+Use promo code: NEATLOGS-OCT2026
+
+Open https://app.crustdata.com and select “Have a promo code?” below Continue. Add the code before signing up with your email. Use email signup, not “Continue with Google”, so the code can be applied. Already have an account, or need help? Contact the neatHack organisers at https://neatlogs.com/discord.
+
+API documentation: https://www.crustdata.com/api-documentation
+
+Before you build
+Every project must use neatlogs, Entire, and cfo.ai. Keep evidence of all three for your submission and demo.
+
+Hackathon guide: https://neatlogs.com/hackathon
+
+Build-log skill: https://neatlogs.com/hackathon/skill
+
+View your team: https://neatlogs.com/hackathon/check-in
+
+Get help on Discord: https://neatlogs.com/discord
+
+See you at neatHack!
+
+The neatlogs team
+</pasted_content id="c06a">
+
+i am taking part in neathack https://luma.com/s5blr882?tk=Tk1ODw
+
+i want you to finish all the setup for me and get everything working for the hackathon. Then get me a proper project for this hackathon.
+
+use ytrohitcrafts@gmail wherever needed and hit me up when u need help
