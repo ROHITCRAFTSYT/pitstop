@@ -25,7 +25,7 @@ pitstop heal --target sandbox/scout
 ```
             ┌──────────── evals (pitstop.toml: eval_cmd) ─────────────┐
             ▼                                                          │
-  target agent ──traces──▶ neatlogs ──CLI read-back──▶ evidence ──▶ DIAGNOSE (claude-sonnet-4.6)
+  target agent ──traces──▶ neatlogs ──trace API──▶ evidence ──▶ DIAGNOSE (claude-sonnet-4.6)
                                                                        │ ranked root-cause hypotheses
                                                                        ▼
             keep + commit ◀── ACCEPT ◀── compare ◀── evals ◀── tests ◀── PATCH (search/replace edits)
@@ -37,7 +37,7 @@ pitstop heal --target sandbox/scout
    The harness meters every model call itself, so the agent can't hide steps.
 2. **Collect evidence.** For each failing task: failed checks, a step-by-step
    timeline (tool calls, arguments, result sizes, errors, tokens per step) and
-   the neatlogs spans for that task's trace, read back with the `neatlogs` CLI.
+   the neatlogs spans and detections for that task's trace, read back through the neatlogs trace API.
 3. **Diagnose.** The model returns ranked hypotheses, each citing evidence
    (task, step, failure text), and sees every earlier attempt and why it was rejected.
 4. **Patch.** Minimal search/replace edits, limited to files the target marks
@@ -99,7 +99,7 @@ Your eval command must write JSON with a `summary` (`tasks`, `passed`,
 
 | Tool | How Pitstop uses it |
 |---|---|
-| **neatlogs** | Every Scout run and every Pitstop step is traced (`neatlogs.wrap`, `@neatlogs.span`, `neatlogs.log`). Pitstop reads failing traces back with the `neatlogs` CLI as diagnosis evidence. Before/after trace ids go in each commit and report. |
+| **neatlogs** | Every Scout run and every Pitstop step is traced (`neatlogs.wrap`, `@neatlogs.span`, `neatlogs.log`). Pitstop reads each failing trace back through the neatlogs trace API (project key: spans, errors, tokens and neatlogs' own detections) as diagnosis evidence. Before/after trace ids go in each commit and report. |
 | **Entire** | The repo is Entire-enabled for Claude Code; build sessions are captured as checkpoints linked to commits. |
 | **cfo.ai** | Pricing, costs, revenue and runway plan for Pitstop as a product: [`docs/business-plan.md`](docs/business-plan.md). |
 | **Crustdata** | Scout's live data source (`SCOUT_DATA=live`). |
@@ -108,7 +108,7 @@ Your eval command must write JSON with a `summary` (`tasks`, `passed`,
 ## Layout
 
 ```
-src/pitstop/      cli · heal loop · diagnose/patch crew · evidence (neatlogs read-back) · target (edits, git) · report
+src/pitstop/      cli · heal loop · diagnose/patch crew · evidence (neatlogs trace read-back) · target (edits, git) · report
 patients/scout/   the patient agent, its evals, fixtures and tests
 tests/            offline end-to-end pit stops with scripted models
 reports/          reports from real runs

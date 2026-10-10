@@ -4,8 +4,7 @@ from __future__ import annotations
 
 import json
 import os
-import shutil
-import subprocess
+import time
 
 MAX_TASKS = 4
 
@@ -53,70 +52,69 @@ def build(results: dict, traces: "NeatlogsTraces | None" = None) -> str:
 
 
 class NeatlogsTraces:
-    """Reads traces back from neatlogs with the `neatlogs` CLI (OAuth login required).
+    """Reads traces back from neatlogs with the project API key.
 
-    Enabled when the CLI is on PATH and NEATLOGS_CLI_PROJECT is set. Every call is
-    best-effort: Pitstop falls back to its own run telemetry if a read fails.
+    Uses the same read path as ``neatlogs doctor --probe``. Each read returns the
+    trace's spans (inputs, outputs, errors, tokens) plus neatlogs' own failure
+    detections. Every call is best-effort: Pitstop falls back to its own run
+    telemetry when a trace isn't readable yet.
     """
 
-    def __init__(self, project: str | None = None, host: str | None = None) -> None:
-        self.project = project or os.environ.get("NEATLOGS_CLI_PROJECT")
-        self.host = host or os.environ.get("NEATLOGS_CLI_HOST")
-        self.exe = shutil.which("neatlogs")
+    def __init__(self, api_key: str | None = None, endpoint: str | None = None, wait_s: float = 45.0) -> None:
+        self.api_key = api_key or os.environ.get("NEATLOGS_API_KEY")
+        self.endpoint = (endpoint or os.environ.get("NEATLOGS_ENDPOINT") or "https://ingest.neatlogs.com").rstrip("/")
+        self.wait_s = wait_s
         self.reads = 0
+        self.detections = 0
         self.failures: list[str] = []
 
     @property
     def enabled(self) -> bool:
-        return bool(self.exe and self.project)
+        return bool(self.api_key)
 
-    def _cli(self, *args: str):
-        cmd = [self.exe]
-        if self.host:
-            cmd += ["--host", self.host]
-        cmd += ["--project", self.project, *args, "--json"]
-        proc = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60)
-        if proc.returncode != 0:
-            raise RuntimeError(proc.stderr.strip()[:300] or f"exit {proc.returncode}")
-        return json.loads(proc.stdout)
+    def get(self, trace_id: str) -> dict:
+        import httpx
 
-    def spans(self, trace_id: str) -> list[dict]:
-        data = self._cli("traces", "spans", "list", trace_id, "--limit", "100")
+        deadline = time.monotonic() + self.wait_s
+        while True:
+            r = httpx.get(f"{self.endpoint}/api/traces/v3/{trace_id}", headers={"x-api-key": self.api_key}, timeout=20)
+            ready = r.status_code == 200 and r.json().get("spans")
+            if ready or time.monotonic() > deadline or r.status_code in (401, 403):
+                break
+            time.sleep(3)
+        r.raise_for_status()
         self.reads += 1
-        if isinstance(data, dict):
-            for key in ("spans", "items", "data", "results"):
-                if isinstance(data.get(key), list):
-                    return data[key]
-        return data if isinstance(data, list) else []
+        return r.json()
 
     def summarize(self, trace_id: str | None) -> str | None:
         if not (self.enabled and trace_id):
             return None
         try:
-            spans = self.spans(trace_id)
+            trace = self.get(trace_id)
         except Exception as exc:
             self.failures.append(f"{trace_id}: {exc}")
             return None
-        lines = []
-        for span in spans[:60]:
-            name = _pick(span, "name", "span_name", "spanName") or "?"
-            kind = _pick(span, "kind", "span_kind", "spanKind", "type") or ""
-            status = _pick(span, "status", "status_code", "statusCode") or ""
-            dur = _pick(span, "duration_ms", "durationMs", "latency_ms", "duration")
-            tokens = _pick(span, "total_tokens", "totalTokens", "tokens")
-            err = _pick(span, "error", "error_message", "exception", "status_message")
-            bits = [f"{kind} {name}".strip(), f"status={status}" if status else "", f"dur={dur}" if dur else "",
-                    f"tokens={tokens}" if tokens else "", f"error={str(err)[:160]}" if err else ""]
+        lines = [
+            f"trace: {trace.get('spanCount')} spans, {trace.get('llmCalls')} llm calls, {trace.get('toolCalls')} tool calls, "
+            f"{trace.get('errorCount')} errors, {trace.get('totalTokensUsed')} tokens, latency {trace.get('latency')}ms"
+        ]
+        detections = list(trace.get("detections") or []) + list(trace.get("traceDetections") or [])
+        for span in trace.get("spans") or []:
+            detections += span.get("detections") or []
+        self.detections += len(detections)
+        for det in detections[:8]:
+            lines.append(f"neatlogs detection: {json.dumps(det)[:300]}")
+        spans = sorted(trace.get("spans") or [], key=lambda s: s.get("createdAt") or "")
+        for span in spans[:40]:
+            data = span.get("data") or {}
+            bits = [
+                f"{span.get('node_type', '')} {span.get('node_name', '')}".strip(),
+                f"status={span.get('status')}" if span.get("status") else "",
+                f"{data.get('duration_ms')}ms" if data.get("duration_ms") else "",
+                f"tokens={data.get('total_tokens')}" if data.get("total_tokens") else "",
+                f"input={str(data.get('input_value'))[:120]!r}" if data.get("tool_name") and data.get("input_value") else "",
+                f"output_chars={len(str(data.get('output_value') or ''))}" if data.get("output_value") else "",
+                f"error={data.get('error_type')}: {str(data.get('error_message'))[:160]}" if data.get("error_message") else "",
+            ]
             lines.append("- " + " ".join(b for b in bits if b))
-        return "\n".join(lines) or None
-
-
-def _pick(d: dict, *keys):
-    for key in keys:
-        if key in d and d[key] not in (None, "", {}):
-            value = d[key]
-            return value if not isinstance(value, dict) else json.dumps(value)[:120]
-        attrs = d.get("attributes") or {}
-        if key in attrs and attrs[key] not in (None, ""):
-            return attrs[key]
-    return None
+        return "\n".join(lines)

@@ -155,10 +155,13 @@ def score(task: dict, brief, error: str | None, metered: MeteredClient, budget: 
 
 def _trace_id() -> str | None:
     try:
+        from neatlogs._wrap_utils import active_neatlogs_context
         from opentelemetry import trace
 
-        ctx = trace.get_current_span().get_span_context()
-        return format(ctx.trace_id, "032x") if ctx.trace_id else None
+        ctx = active_neatlogs_context()
+        span = trace.get_current_span(ctx) if ctx is not None else trace.get_current_span()
+        trace_id = span.get_span_context().trace_id
+        return format(trace_id, "032x") if trace_id else None
     except Exception:
         return None
 

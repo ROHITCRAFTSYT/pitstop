@@ -27,9 +27,14 @@
 
 - Repo published at https://github.com/ROHITCRAFTSYT/pitstop; CI (offline pit stop) green. Attached the Claude Code build session to Entire as a checkpoint (hooks were installed mid-session, so it was attached by hand).
 
+### 2026-10-10 (Sat), late evening IST
+- neatlogs project connected. `python -m neatlogs doctor --probe`: all 8 checks pass (TRACE_VISIBLE, TRACE_FINALIZED, hierarchy, attributes, I/O, metadata, tokens).
+- Bug found from the first traced run: every Scout trace id was `None`. neatlogs runs its tracer provider in isolated mode, so the OTel global current span isn't the neatlogs span. Fixed by resolving the span through neatlogs' active context.
+- Switched trace read-back from `neatlogs-cli` (needs OAuth) to the trace API with the project key, the same path the doctor probe uses. Pitstop now gets spans, errors, tokens and neatlogs detections per failing task. First read-back of the `notion` task showed exactly the URL fault: two `company_lookup` spans with `NotFound ... 'https://www.notion.so/'`, then a `JSONDecodeError` on `scout.research`.
+
 ### Pending
 - [ ] LiteLLM key (team leader verifies check-in email) → first real run on `claude-haiku`
-- [ ] neatlogs project + API key → traces in the dashboard; `neatlogs auth login` for read-back
+- [x] neatlogs project + API key → traces in the dashboard, read-back working
 - [ ] `entire login` + GitHub App on the repo → checkpoint link + ID
 - [ ] cfo.ai business plan
 - [ ] Before/after trace pair and a failure-recovery trace for the submission
@@ -39,7 +44,7 @@
 _Pending._
 
 ## Known limitations and next steps
-- Read-back depends on `neatlogs-cli` OAuth. Without it, Pitstop uses its own run telemetry.
+- If a trace isn't finalized within ~45s, Pitstop falls back to its own run telemetry for that task.
 - One fix per attempt, applied serially. Parallel hypothesis testing in worktrees is next.
 - Evals are nondeterministic with real models; temperature 0 only partly helps. Repeat-runs for significance is next.
 

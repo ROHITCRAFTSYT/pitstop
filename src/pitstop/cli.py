@@ -171,6 +171,7 @@ def cmd_heal(args) -> int:
         neatlogs.flush()
     if traces.failures:
         console.print(f"[yellow]{len(traces.failures)} neatlogs trace reads failed[/]; first: {traces.failures[0]}")
+    console.print(f"neatlogs traces read back: {traces.reads} · detections seen: {traces.detections}")
     return 0
 
 
@@ -183,8 +184,6 @@ def cmd_doctor(args) -> int:
 
     check("LITELLM_API_KEY", bool(os.environ.get("LITELLM_API_KEY")), "hackathon model key (team leader's check-in email)")
     check("NEATLOGS_API_KEY", bool(os.environ.get("NEATLOGS_API_KEY")), "neatlogs project key: Settings → API keys")
-    check("neatlogs CLI", bool(shutil.which("neatlogs")), "npm i -g neatlogs-cli (trace read-back)")
-    check("NEATLOGS_CLI_PROJECT", bool(os.environ.get("NEATLOGS_CLI_PROJECT")), "project id for `neatlogs traces`")
     check("entire CLI", bool(shutil.which("entire")), "irm https://entire.io/install.ps1 | iex")
     check("CRUSTDATA_API_KEY", bool(os.environ.get("CRUSTDATA_API_KEY")), "optional: SCOUT_DATA=live")
     table = Table(title="pitstop doctor")
