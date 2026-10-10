@@ -48,22 +48,19 @@
 - Fix: diagnose/patch now see rejected diffs and the failures that remained, and an identical re-proposal is reverted without re-running evals. Run 4 (same setup): the guard fired 3 times and skipped those eval re-runs, but nova-pro still couldn't solve the fence bug (its patches produced invalid Python, which was rejected safely). Conclusion: fixer quality matters; Sonnet solved it first try in run 1. neatlogs detections started appearing (22 in run 4).
 - cfo.ai: Ari built a 4-page model plus 12 scenarios (docs/business-plan.md). Base case: $47k 12-month revenue, cash out in month 3, $28.5k bridge needed; Team at $29 is contribution-negative; $79 breaks even within the year. Ari's top risk, the true cost of one pit stop including failed patches, is something Pitstop's ledger already measures ($0.04–$0.21 in real runs).
 
-### Pending
-- [x] LiteLLM key → first real run on `claude-haiku` (0/6 → 6/6)
-- [x] neatlogs project + API key → traces in the dashboard, read-back working
-- [x] `entire login` → checkpoint link + ID (https://entire.io/gh/ROHITCRAFTSYT/pitstop/commit/7e08edba996ee741b17848e3abad7e534df54c5c)
-- [x] cfo.ai business plan: docs/business-plan.md, live link https://cfo.ai/s/W2RB_otvpzPIaBn6, Controls xlsx in docs/cfo-ai/
-- [x] Before/after trace pair (baseline `4f00c2ed…` vs final `3a6ac2bc…`, stripe task)
-- [ ] A real failure-recovery trace (rejected or repaired patch on a real model)
-- [ ] Demo video, #neatHack posts
+## Evidence
+
+| What | Where |
+|---|---|
+| Before/after pair (stripe task) | neatlogs traces `4f00c2edd726bf2405756cc32fd5bff8` → `3a6ac2bcdd16692d88b7e3755144d09b`; [report](reports/pitstop-1010-2320-db0d.md) |
+| Failure recovery | [reports/pitstop-1010-2326-c7f5.md](reports/pitstop-1010-2326-c7f5.md): 4 rejected patches reverted; [reports/pitstop-1010-2333-e12a.md](reports/pitstop-1010-2333-e12a.md): duplicate-patch guard |
+| Entire checkpoint | `01M4KBB7SNC5AY5QCBG39ZXGMS`: https://entire.io/gh/ROHITCRAFTSYT/pitstop/commit/7e08edba996ee741b17848e3abad7e534df54c5c |
+| cfo.ai plan | https://cfo.ai/s/W2RB_otvpzPIaBn6 · [docs/business-plan.md](docs/business-plan.md) |
 
 ## Demo
-_Pending._
+Video link to follow.
 
 ## Known limitations and next steps
 - If a trace isn't finalized within ~45s, Pitstop falls back to its own run telemetry for that task.
 - One fix per attempt, applied serially. Parallel hypothesis testing in worktrees is next.
 - Evals are nondeterministic with real models; temperature 0 only partly helps. Repeat-runs for significance is next.
-
-## Submission
-Confirmed requirements (from neatlogs.com/hackathon): public repo with commits during the hackathon; demo video covering the agent + neatlogs + Entire + cfo.ai; cfo.ai business plan; #neatHack public posts; before/after run pair; failure-recovery run; Entire checkpoint link + ID. Submit by quoting the official neatlogs post on X with team, project, repo, demo.
