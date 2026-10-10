@@ -6,6 +6,10 @@ economics*, *Cash and runway* and *Sensitivities*, plus 12 saved scenarios and a
 simulator. The figures below are copied from Ari's output. They are forecast
 assumptions, not actual revenue.
 
+- **Live model (view-only, no login):** https://cfo.ai/s/W2RB_otvpzPIaBn6 (all four pages)
+- **Spreadsheet export of the Controls page:** [`docs/cfo-ai/pitstop-controls.xlsx`](cfo-ai/pitstop-controls.xlsx)
+  (pricing and allowances, operating assumptions, design-partner targets)
+
 ## Inputs we gave Ari
 
 | Item | Value |

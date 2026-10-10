@@ -52,7 +52,7 @@
 - [x] LiteLLM key → first real run on `claude-haiku` (0/6 → 6/6)
 - [x] neatlogs project + API key → traces in the dashboard, read-back working
 - [x] `entire login` → checkpoint link + ID (https://entire.io/gh/ROHITCRAFTSYT/pitstop/commit/7e08edba996ee741b17848e3abad7e534df54c5c)
-- [x] cfo.ai business plan (docs/business-plan.md); public share link pending approval
+- [x] cfo.ai business plan: docs/business-plan.md, live link https://cfo.ai/s/W2RB_otvpzPIaBn6, Controls xlsx in docs/cfo-ai/
 - [x] Before/after trace pair (baseline `4f00c2ed…` vs final `3a6ac2bc…`, stripe task)
 - [ ] A real failure-recovery trace (rejected or repaired patch on a real model)
 - [ ] Demo video, #neatHack posts
