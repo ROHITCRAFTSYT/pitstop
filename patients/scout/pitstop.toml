@@ -1,0 +1,8 @@
+# How Pitstop runs and edits this agent.
+[target]
+name = "scout"
+description = "Company research agent: domain in, grounded JSON brief out (Crustdata-backed)."
+eval_cmd = ["{python}", "-m", "evals.run", "--out", "{out}", "--model", "{model}"]
+test_cmd = ["{python}", "-m", "pytest", "-q", "tests"]
+editable = ["scout/agent.py", "scout/tools.py", "scout/prompts.py"]
+context = ["scout/backends.py", "evals/run.py", "evals/tasks.json"]

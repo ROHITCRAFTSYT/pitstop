@@ -1,0 +1,8 @@
+[
+  {"id": "stripe",   "input": "stripe.com",                   "domain": "stripe.com",   "expect_name": "Stripe"},
+  {"id": "notion",   "input": "https://www.notion.so/",       "domain": "notion.so",    "expect_name": "Notion"},
+  {"id": "zerodha",  "input": "zerodha.com",                  "domain": "zerodha.com",  "expect_name": "Zerodha"},
+  {"id": "razorpay", "input": "https://razorpay.com/pricing", "domain": "razorpay.com", "expect_name": "Razorpay"},
+  {"id": "linear",   "input": "linear.app",                   "domain": "linear.app",   "expect_name": "Linear"},
+  {"id": "postman",  "input": "www.postman.com",              "domain": "postman.com",  "expect_name": "Postman"}
+]

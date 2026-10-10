@@ -1,0 +1,404 @@
+{
+  "stripe.com": {
+    "company": {
+      "company_name": "Stripe",
+      "company_website_domain": "stripe.com",
+      "year_founded": "2010",
+      "hq_city": "South San Francisco",
+      "hq_country": "United States",
+      "short_description": "Payments infrastructure for the internet.",
+      "headcount": {
+        "linkedin_headcount": 8500
+      },
+      "funding_and_investment": {
+        "crunchbase_total_investment_usd": 9440000000,
+        "last_funding_round_type": "Series I"
+      }
+    },
+    "people": [
+      {
+        "name": "Priya Varma",
+        "title": "Chief Executive Officer"
+      },
+      {
+        "name": "Hana Brennan",
+        "title": "Chief Technology Officer"
+      },
+      {
+        "name": "Arjun Castillo",
+        "title": "Chief Operating Officer"
+      },
+      {
+        "name": "Anika Andersen",
+        "title": "Chief Financial Officer"
+      },
+      {
+        "name": "Arjun Lindqvist",
+        "title": "VP Engineering"
+      },
+      {
+        "name": "Priya Iyer",
+        "title": "VP Sales"
+      },
+      {
+        "name": "Arjun Kapoor",
+        "title": "Head of Product"
+      },
+      {
+        "name": "Ravi Nakamura",
+        "title": "Director of Marketing"
+      },
+      {
+        "name": "Yuki Kapoor",
+        "title": "Head of Design"
+      },
+      {
+        "name": "Dev Nakamura",
+        "title": "General Counsel"
+      },
+      {
+        "name": "Dev Iyer",
+        "title": "Staff Software Engineer"
+      },
+      {
+        "name": "Marco Iyer",
+        "title": "Senior Product Manager"
+      }
+    ]
+  },
+  "notion.so": {
+    "company": {
+      "company_name": "Notion",
+      "company_website_domain": "notion.so",
+      "year_founded": "2013",
+      "hq_city": "San Francisco",
+      "hq_country": "United States",
+      "short_description": "Connected workspace for docs, wikis and projects.",
+      "headcount": {
+        "linkedin_headcount": 1100
+      },
+      "funding_and_investment": {
+        "crunchbase_total_investment_usd": 343000000,
+        "last_funding_round_type": "Series C"
+      }
+    },
+    "people": [
+      {
+        "name": "Elias Andersen",
+        "title": "Chief Executive Officer"
+      },
+      {
+        "name": "Kenji Kapoor",
+        "title": "Chief Technology Officer"
+      },
+      {
+        "name": "Mira Castillo",
+        "title": "Chief Operating Officer"
+      },
+      {
+        "name": "Ravi Ferreira",
+        "title": "Chief Financial Officer"
+      },
+      {
+        "name": "Dev Nakamura",
+        "title": "VP Engineering"
+      },
+      {
+        "name": "Ines Novak",
+        "title": "VP Sales"
+      },
+      {
+        "name": "Zara Mehta",
+        "title": "Head of Product"
+      },
+      {
+        "name": "Asha Kapoor",
+        "title": "Director of Marketing"
+      },
+      {
+        "name": "Leo Varma",
+        "title": "Head of Design"
+      },
+      {
+        "name": "Leo Rossi",
+        "title": "General Counsel"
+      },
+      {
+        "name": "Yuki Lindqvist",
+        "title": "Staff Software Engineer"
+      },
+      {
+        "name": "Sofia Nakamura",
+        "title": "Senior Product Manager"
+      }
+    ]
+  },
+  "zerodha.com": {
+    "company": {
+      "company_name": "Zerodha",
+      "company_website_domain": "zerodha.com",
+      "year_founded": "2010",
+      "hq_city": "Bengaluru",
+      "hq_country": "India",
+      "short_description": "Discount stockbroker and investment platform.",
+      "headcount": {
+        "linkedin_headcount": 1200
+      },
+      "funding_and_investment": {
+        "crunchbase_total_investment_usd": null,
+        "last_funding_round_type": null
+      }
+    },
+    "people": [
+      {
+        "name": "Felix Castillo",
+        "title": "Chief Executive Officer"
+      },
+      {
+        "name": "Zara Haddad",
+        "title": "Chief Technology Officer"
+      },
+      {
+        "name": "Clara Lindqvist",
+        "title": "Chief Operating Officer"
+      },
+      {
+        "name": "Maya Andersen",
+        "title": "Chief Financial Officer"
+      },
+      {
+        "name": "Marco Andersen",
+        "title": "VP Engineering"
+      },
+      {
+        "name": "Kenji Andersen",
+        "title": "VP Sales"
+      },
+      {
+        "name": "Arjun Mehta",
+        "title": "Head of Product"
+      },
+      {
+        "name": "Nadia Castillo",
+        "title": "Director of Marketing"
+      },
+      {
+        "name": "Asha Lindqvist",
+        "title": "Head of Design"
+      },
+      {
+        "name": "Elias Novak",
+        "title": "General Counsel"
+      },
+      {
+        "name": "Mira Iyer",
+        "title": "Staff Software Engineer"
+      },
+      {
+        "name": "Felix Novak",
+        "title": "Senior Product Manager"
+      }
+    ]
+  },
+  "razorpay.com": {
+    "company": {
+      "company_name": "Razorpay",
+      "company_website_domain": "razorpay.com",
+      "year_founded": "2014",
+      "hq_city": "Bengaluru",
+      "hq_country": "India",
+      "short_description": "Full-stack payments and banking platform for businesses.",
+      "headcount": {
+        "linkedin_headcount": 3200
+      },
+      "funding_and_investment": {
+        "crunchbase_total_investment_usd": 741500000,
+        "last_funding_round_type": "Series F"
+      }
+    },
+    "people": [
+      {
+        "name": "Kenji Haddad",
+        "title": "Chief Executive Officer"
+      },
+      {
+        "name": "Leo Lindqvist",
+        "title": "Chief Technology Officer"
+      },
+      {
+        "name": "Yuki Sato",
+        "title": "Chief Operating Officer"
+      },
+      {
+        "name": "Maya Novak",
+        "title": "Chief Financial Officer"
+      },
+      {
+        "name": "Zara Ferreira",
+        "title": "VP Engineering"
+      },
+      {
+        "name": "Ravi Moreau",
+        "title": "VP Sales"
+      },
+      {
+        "name": "Ines Andersen",
+        "title": "Head of Product"
+      },
+      {
+        "name": "Maya Mehta",
+        "title": "Director of Marketing"
+      },
+      {
+        "name": "Asha Okafor",
+        "title": "Head of Design"
+      },
+      {
+        "name": "Kenji Nakamura",
+        "title": "General Counsel"
+      },
+      {
+        "name": "Lena Mehta",
+        "title": "Staff Software Engineer"
+      },
+      {
+        "name": "Kenji Kapoor",
+        "title": "Senior Product Manager"
+      }
+    ]
+  },
+  "linear.app": {
+    "company": {
+      "company_name": "Linear",
+      "company_website_domain": "linear.app",
+      "year_founded": "2019",
+      "hq_city": "San Francisco",
+      "hq_country": "United States",
+      "short_description": "Issue tracking and product planning for software teams.",
+      "headcount": {
+        "linkedin_headcount": 120
+      },
+      "funding_and_investment": {
+        "crunchbase_total_investment_usd": 134200000,
+        "last_funding_round_type": "Series C"
+      }
+    },
+    "people": [
+      {
+        "name": "Dev Okafor",
+        "title": "Chief Executive Officer"
+      },
+      {
+        "name": "Marco Kapoor",
+        "title": "Chief Technology Officer"
+      },
+      {
+        "name": "Arjun Novak",
+        "title": "Chief Operating Officer"
+      },
+      {
+        "name": "Dev Ferreira",
+        "title": "Chief Financial Officer"
+      },
+      {
+        "name": "Arjun Rossi",
+        "title": "VP Engineering"
+      },
+      {
+        "name": "Zara Mehta",
+        "title": "VP Sales"
+      },
+      {
+        "name": "Omar Ferreira",
+        "title": "Head of Product"
+      },
+      {
+        "name": "Asha Mehta",
+        "title": "Director of Marketing"
+      },
+      {
+        "name": "Lena Nakamura",
+        "title": "Head of Design"
+      },
+      {
+        "name": "Felix Moreau",
+        "title": "General Counsel"
+      },
+      {
+        "name": "Anika Haddad",
+        "title": "Staff Software Engineer"
+      },
+      {
+        "name": "Nadia Nakamura",
+        "title": "Senior Product Manager"
+      }
+    ]
+  },
+  "postman.com": {
+    "company": {
+      "company_name": "Postman",
+      "company_website_domain": "postman.com",
+      "year_founded": "2014",
+      "hq_city": "San Francisco",
+      "hq_country": "United States",
+      "short_description": "API platform for building and testing APIs.",
+      "headcount": {
+        "linkedin_headcount": 850
+      },
+      "funding_and_investment": {
+        "crunchbase_total_investment_usd": 433000000,
+        "last_funding_round_type": "Series D"
+      }
+    },
+    "people": [
+      {
+        "name": "Marco Moreau",
+        "title": "Chief Executive Officer"
+      },
+      {
+        "name": "Sofia Ferreira",
+        "title": "Chief Technology Officer"
+      },
+      {
+        "name": "Priya Andersen",
+        "title": "Chief Operating Officer"
+      },
+      {
+        "name": "Ines Haddad",
+        "title": "Chief Financial Officer"
+      },
+      {
+        "name": "Lena Novak",
+        "title": "VP Engineering"
+      },
+      {
+        "name": "Priya Iyer",
+        "title": "VP Sales"
+      },
+      {
+        "name": "Sofia Haddad",
+        "title": "Head of Product"
+      },
+      {
+        "name": "Priya Rossi",
+        "title": "Director of Marketing"
+      },
+      {
+        "name": "Marco Castillo",
+        "title": "Head of Design"
+      },
+      {
+        "name": "Lena Mehta",
+        "title": "General Counsel"
+      },
+      {
+        "name": "Omar Haddad",
+        "title": "Staff Software Engineer"
+      },
+      {
+        "name": "Felix Ferreira",
+        "title": "Senior Product Manager"
+      }
+    ]
+  }
+}
