@@ -25,6 +25,8 @@
 - Offline end-to-end tests (scripted models): Scout 0/6 → 6/6 over 4 accepted fixes; tokens 35,672 → 10,138. Covers patch repair, blocked eval edits, rejected no-op patches with revert, and budget stop. `pytest -q`: 4 passed.
 - Design decision: the accept rule first used a token guard that rejected the URL fix, because fixing it let more runs reach the bloated `people_search` and tokens went up. Switched to net checks passing (token budget is itself a check). This is the kind of trade-off the tool has to handle.
 
+- Repo published at https://github.com/ROHITCRAFTSYT/pitstop; CI (offline pit stop) green. Attached the Claude Code build session to Entire as a checkpoint (hooks were installed mid-session, so it was attached by hand).
+
 ### Pending
 - [ ] LiteLLM key (team leader verifies check-in email) → first real run on `claude-haiku`
 - [ ] neatlogs project + API key → traces in the dashboard; `neatlogs auth login` for read-back
