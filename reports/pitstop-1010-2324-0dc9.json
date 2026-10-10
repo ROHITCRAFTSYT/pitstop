@@ -1,0 +1,152 @@
+{
+  "run_id": "1010-2324-0dc9",
+  "target": "scout",
+  "branch": "pitstop/1010-2324-0dc9",
+  "stopped": "all tasks pass",
+  "baseline": {
+    "run_id": "1010-2324-0dc9",
+    "variant": "baseline",
+    "model": "nova-lite",
+    "data": "fixture",
+    "tasks": 6,
+    "passed": 5,
+    "pass_rate": 0.833,
+    "total_tokens": 32765,
+    "cost_usd": 0.002343,
+    "avg_latency_s": 4.247,
+    "avg_steps": 3.0,
+    "tool_errors": 0
+  },
+  "final": {
+    "run_id": "1010-2324-0dc9",
+    "variant": "r1-1",
+    "model": "nova-lite",
+    "data": "fixture",
+    "tasks": 6,
+    "passed": 6,
+    "pass_rate": 1.0,
+    "total_tokens": 20233,
+    "cost_usd": 0.001636,
+    "avg_latency_s": 4.659,
+    "avg_steps": 3.67,
+    "tool_errors": 0
+  },
+  "evals": [
+    {
+      "variant": "baseline",
+      "summary": {
+        "run_id": "1010-2324-0dc9",
+        "variant": "baseline",
+        "model": "nova-lite",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 5,
+        "pass_rate": 0.833,
+        "total_tokens": 32765,
+        "cost_usd": 0.002343,
+        "avg_latency_s": 4.247,
+        "avg_steps": 3.0,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\scout\\.pitstop\\runs\\1010-2324-0dc9\\baseline.json",
+      "trace_ids": [
+        "607753c4a5c9322fd40fdca7b9639fbc",
+        "47afc25e9fba17b3844787dc8ddb173d",
+        "e7891e4e25651b533cd007eb41996486",
+        "52d1429f1c8d2c26bd4f176418cb406c",
+        "5ba798cefa2db3d5514ac0f3a6727505",
+        "bf134e8bba8ed1b537651fcb4b0a29cb"
+      ]
+    },
+    {
+      "variant": "r1-1",
+      "summary": {
+        "run_id": "1010-2324-0dc9",
+        "variant": "r1-1",
+        "model": "nova-lite",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 6,
+        "pass_rate": 1.0,
+        "total_tokens": 20233,
+        "cost_usd": 0.001636,
+        "avg_latency_s": 4.659,
+        "avg_steps": 3.67,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\scout\\.pitstop\\runs\\1010-2324-0dc9\\r1-1.json",
+      "trace_ids": [
+        "9a584d5d6097be137bfe9ba3c140eefc",
+        "0448bca6f416b7818212e6198c920bc7",
+        "f477555014d15b445d14ae7caa271dfa",
+        "8cd154bced61206da4449ba4299e4ff7",
+        "957c602bee1049ca90f0fe1dc7bd62ec",
+        "bf1a8a8ac43cbada1572af068170dc43"
+      ]
+    }
+  ],
+  "attempts": [
+    {
+      "round": 1,
+      "title": "people_search returns full verbose profiles; truncate to only name+title before injecting into context",
+      "hypothesis": {
+        "id": "h1",
+        "title": "people_search returns full verbose profiles; truncate to only name+title before injecting into context",
+        "root_cause": "The `people_search` tool returns full LinkedIn-style profiles from `_full_profile()` in the backend, including skills, all_employers, education, recent_posts, summary, etc. For the postman task this produces 51,523 chars / ~12,800 tokens of tool output injected into the conversation, blowing the 8,000-token budget. The agent only needs name and title from each person.",
+        "evidence": [
+          "task `postman` step 3: people_search returned 51523 chars, prompt=12349tok, total=14104 tokens vs budget 8000",
+          "scout/tools.py:68 people_search returns raw backend output with no trimming",
+          "scout/backends.py _full_profile builds rich profiles with skills(20), all_employers(5), recent_posts(3), long summaries \u2014 all irrelevant to the brief"
+        ],
+        "files": [
+          "scout/tools.py"
+        ],
+        "fix_plan": "In `scout/tools.py`, modify the `people_search` function to strip each returned profile down to only the fields the agent needs: `name`, `title`, and optionally `current_company`. Replace the raw return with a list comprehension that picks just those keys:\n\n```python\n@neatlogs.span(kind=\"TOOL\", tool_name=\"people_search\")\ndef people_search(domain: str, titles: list[str] | None = None) -> list[dict]:\n    raw = get_backend().people(domain, titles)\n    return [\n        {\"name\": p.get(\"name\"), \"title\": p.get(\"title\"), \"current_company\": p.get(\"current_company\")}\n        for p in raw\n        if p.get(\"name\")\n    ]\n```\n\nThis reduces the tool output from ~51k chars to ~1-2k chars, keeping the total token count well under 8,000.",
+        "expected_effect": "task `postman` should flip from failed to passed on `within_token_budget`. Token count should drop from ~14,104 to well under 8,000. No other tasks should regress since they all use the same tool and will also benefit from smaller context.",
+        "confidence": 0.97
+      },
+      "outcome": "accepted",
+      "reason": "1 more task(s) pass",
+      "diff": "diff --git a/scout/tools.py b/scout/tools.py\nindex 4547815..92a0df8 100644\n--- a/scout/tools.py\n+++ b/scout/tools.py\n@@ -62,7 +62,12 @@ def company_lookup(domain: str) -> dict:\n \n @neatlogs.span(kind=\"TOOL\", tool_name=\"people_search\")\n def people_search(domain: str, titles: list[str] | None = None) -> list[dict]:\n-    return get_backend().people(domain, titles)\n+    raw = get_backend().people(domain, titles)\n+    return [\n+        {\"name\": p.get(\"name\"), \"title\": p.get(\"title\"), \"current_company\": p.get(\"current_company\")}\n+        for p in raw\n+        if p.get(\"name\")\n+    ]\n \n \n TOOLS = {\"company_lookup\": company_lookup, \"people_search\": people_search}",
+      "summary": "Truncate people_search output to name+title+current_company to stay within token budget",
+      "files": [
+        "scout/tools.py"
+      ],
+      "deltas": {
+        "passed": [
+          5,
+          6
+        ],
+        "checks": [
+          29,
+          30
+        ],
+        "total_tokens": [
+          32765,
+          20233
+        ],
+        "cost_usd": [
+          0.002343,
+          0.001636
+        ],
+        "tool_errors": [
+          0,
+          0
+        ],
+        "avg_steps": [
+          3.0,
+          3.67
+        ]
+      },
+      "variant": "r1-1",
+      "commit": "32f87e2111b38247db27ed2e5d8028bd9c92785a"
+    }
+  ],
+  "ledger": {
+    "spent_usd": 0.0423,
+    "calls": 2,
+    "tokens": 10824
+  },
+  "started": 1791654889.651114,
+  "finished": 1791654973.222969
+}
