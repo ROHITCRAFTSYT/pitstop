@@ -20,7 +20,9 @@ Rules:
 - Fix the agent, never the evals or the data. Files marked READ-ONLY cannot change.
 - One root cause per hypothesis. Rank by how many failing checks it would fix.
 - Never propose hard-coding task inputs, company names or expected answers.
-- Skip anything already tried and accepted; learn from rejected attempts.
+- Skip anything already tried and accepted. If a fix was rejected, its diff and the
+  failures that remained are shown: explain why it didn't work and propose a
+  different fix, or drop the hypothesis.
 
 Reply with only JSON:
 {"hypotheses": [{"id": "h1", "title": "...", "root_cause": "...",
@@ -46,9 +48,13 @@ Reply with only JSON:
 def _attempts_text(attempts: list[dict]) -> str:
     if not attempts:
         return "none yet"
-    return "\n".join(
-        f"- [{a['outcome']}] {a['title']}: {a['reason']}" for a in attempts
-    )
+    lines = []
+    for a in attempts:
+        lines.append(f"- round {a['round']} [{a['outcome']}] {a['title']}: {a['reason']}")
+        if a["outcome"] != "accepted" and a.get("diff"):
+            lines.append(f"  rejected diff:\n{a['diff'][:800]}")
+            lines.append(f"  still failing after it: {a.get('after_failures')}")
+    return "\n".join(lines)
 
 
 @neatlogs.span(kind="AGENT", name="pitstop.diagnose", role="diagnostician", goal="root-cause agent failures from traces")
@@ -66,9 +72,12 @@ def diagnose(llm: LLM, target: Target, evidence: str, attempts: list[dict]) -> l
 
 
 @neatlogs.span(kind="AGENT", name="pitstop.patch", role="mechanic", goal="implement one fix as minimal edits")
-def propose_patch(llm: LLM, target: Target, hypothesis: dict, feedback: str | None = None) -> tuple[list[Edit], str]:
+def propose_patch(
+    llm: LLM, target: Target, hypothesis: dict, feedback: str | None = None, attempts: list[dict] | None = None
+) -> tuple[list[Edit], str]:
     user = (
         f"Fix this root cause:\n{json.dumps(hypothesis, indent=2)}\n\n"
+        f"Earlier attempts (do not repeat a rejected diff):\n{_attempts_text(attempts or [])}\n\n"
         f"Current source:\n{target.source_bundle(include_context=False)}"
     )
     if feedback:

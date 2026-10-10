@@ -95,6 +95,9 @@ class Narrator:
     def on_patch_failed(self, attempt, error, will_retry):
         console.print(f"  [red]patch did not apply[/]: {error.splitlines()[0][:160]}" + (" → retrying" if will_retry else ""))
 
+    def on_duplicate_patch(self, attempt, will_retry):
+        console.print("  [red]same patch as a rejected attempt[/], not re-testing" + (" → asking for a different fix" if will_retry else ""))
+
     def on_tests_failed(self, attempt, output, will_retry):
         console.print("  [red]tests failed after patch[/]" + (" → retrying" if will_retry else ""))
 

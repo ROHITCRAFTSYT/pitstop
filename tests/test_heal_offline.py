@@ -149,3 +149,15 @@ def test_budget_stops_the_run(sandbox):
     run = heal(sandbox, llm, max_rounds=3, tries_per_round=1)
     assert run.stopped.startswith("budget")
     assert sandbox.git("status", "--porcelain") == ""
+
+
+def test_identical_rejected_patch_is_not_retested(sandbox):
+    useless = {"edits": [{"file": "scout/agent.py", "search": "MAX_STEPS = 10", "replace": "MAX_STEPS = 11"}], "summary": "more steps"}
+    script = [hyp("step cap"), useless, hyp("step cap again"), useless, FENCE_FIX]
+    llm = LLM("claude-sonnet-4.6", Ledger(5.0), client=ScriptedLLM(script))
+    events = []
+    run = heal(sandbox, llm, max_rounds=2, tries_per_round=1, emit=lambda e, **d: events.append(e))
+    assert [a["outcome"] for a in run.attempts] == ["rejected", "accepted"]
+    assert events.count("duplicate_patch") == 1
+    assert events.count("eval_start") == 3
+    assert run.attempts[0]["after_failures"]

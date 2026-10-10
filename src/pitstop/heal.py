@@ -73,6 +73,7 @@ class HealRun:
 
 
 Emit = Callable[..., None]
+MAX_REPAIRS = 2
 
 
 def _noop(event: str, **data) -> None:
@@ -146,27 +147,44 @@ def heal(
     return run
 
 
+def _remaining_failures(results: dict, limit: int = 4) -> list[str]:
+    return [f"{t['id']}: {f}" for t in results["tasks"] if not t["passed"] for f in t["failures"]][:limit]
+
+
 def _try(target: Target, llm: LLM, run: HealRun, current: dict, hypothesis: dict, round_no: int, emit: Emit) -> dict:
     title = hypothesis.get("title", "untitled fix")
     attempt = {"round": round_no, "title": title, "hypothesis": hypothesis, "outcome": "rejected", "reason": "", "diff": ""}
     emit("attempt_start", attempt=attempt)
+    rejected = {a["diff"]: a for a in run.attempts if a["outcome"] != "accepted" and a.get("diff")}
     feedback = None
-    for repair in range(2):
-        edits, summary = propose_patch(llm, target, hypothesis, feedback)
+    for repair in range(MAX_REPAIRS + 1):
+        edits, summary = propose_patch(llm, target, hypothesis, feedback, run.attempts)
         attempt["summary"] = summary
         try:
             files = target.apply(edits)
         except EditError as exc:
             feedback = str(exc)
-            emit("patch_failed", attempt=attempt, error=feedback, will_retry=repair == 0)
+            emit("patch_failed", attempt=attempt, error=feedback, will_retry=repair < MAX_REPAIRS)
             neatlogs.log("patch could not be applied: {error}", level="warning", error=feedback)
+            continue
+        diff = target.diff()
+        if diff in rejected:
+            target.revert()
+            before = rejected[diff]
+            feedback = (
+                f"This exact change was already tried in round {before['round']} and rejected "
+                f"({before['reason']}). After it, these checks still failed: {before.get('after_failures')}. "
+                "It does not address the root cause. Make a materially different fix."
+            )
+            emit("duplicate_patch", attempt=attempt, will_retry=repair < MAX_REPAIRS)
+            neatlogs.log("skipped a patch identical to a rejected one", level="warning")
             continue
         ok, output = target.run_tests()
         if ok:
             break
         target.revert()
         feedback = f"tests failed after your edit:\n{output[-1500:]}"
-        emit("tests_failed", attempt=attempt, output=output, will_retry=repair == 0)
+        emit("tests_failed", attempt=attempt, output=output, will_retry=repair < MAX_REPAIRS)
         neatlogs.log("tests failed after patch", level="warning")
     else:
         attempt["reason"] = f"could not produce a working patch: {feedback[:300]}"
@@ -174,13 +192,14 @@ def _try(target: Target, llm: LLM, run: HealRun, current: dict, hypothesis: dict
         return attempt
 
     attempt["files"] = files
-    attempt["diff"] = target.diff()
+    attempt["diff"] = diff
     emit("patched", attempt=attempt)
     candidate = _evaluate(target, run, f"r{round_no}-{len(run.attempts) + 1}", emit)
     verdict = compare(current, candidate)
     attempt["deltas"] = verdict.deltas
     attempt["reason"] = verdict.reason
     attempt["variant"] = candidate["summary"]["variant"]
+    attempt["after_failures"] = _remaining_failures(candidate)
     if verdict.accept:
         attempt["outcome"] = "accepted"
         attempt["_results"] = candidate
