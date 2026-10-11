@@ -4,5 +4,7 @@ QUEUES = ("billing", "technical", "account", "sales")
 
 PRIORITY_POLICY = """\
 P1: production outage or data loss for an enterprise customer.
-P2: production outage for a pro customer, any issue for an enterprise customer, or a past_due account that cannot pay.
-P3: everything else (free plan questions, how-to questions, sales enquiries)."""
+P2: any other ticket from an enterprise customer (including sales and billing), a production outage
+    for a pro customer, or a past_due account that cannot pay.
+P3: everything else: pro or free billing and how-to questions, and sales enquiries from
+    non-enterprise customers."""
