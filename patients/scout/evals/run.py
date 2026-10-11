@@ -18,9 +18,9 @@ import uuid
 from types import SimpleNamespace
 
 import neatlogs
+from scout.backends import get_backend
 
 from evals.models import cost_usd, make_client
-from scout.backends import get_backend
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DEFAULT_TOKEN_BUDGET = 8000
