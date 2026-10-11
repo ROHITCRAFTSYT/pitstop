@@ -1,0 +1,414 @@
+{
+  "run_id": "1011-0949-b57c",
+  "target": "scout",
+  "branch": "pitstop/1011-0949-b57c",
+  "stopped": "all tasks pass",
+  "baseline": {
+    "run_id": "1011-0949-b57c",
+    "variant": "baseline",
+    "model": "claude-haiku",
+    "data": "fixture",
+    "tasks": 6,
+    "passed": 0,
+    "pass_rate": 0.0,
+    "total_tokens": 58873,
+    "cost_usd": 0.069641,
+    "avg_latency_s": 4.595,
+    "avg_steps": 2.17,
+    "tool_errors": 0
+  },
+  "final": {
+    "run_id": "1011-0949-b57c",
+    "variant": "r3-4",
+    "model": "claude-haiku",
+    "data": "fixture",
+    "tasks": 6,
+    "passed": 6,
+    "pass_rate": 1.0,
+    "total_tokens": 15673,
+    "cost_usd": 0.024189,
+    "avg_latency_s": 3.092,
+    "avg_steps": 2.0,
+    "tool_errors": 0
+  },
+  "evals": [
+    {
+      "variant": "baseline",
+      "summary": {
+        "run_id": "1011-0949-b57c",
+        "variant": "baseline",
+        "model": "claude-haiku",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 0,
+        "pass_rate": 0.0,
+        "total_tokens": 58873,
+        "cost_usd": 0.069641,
+        "avg_latency_s": 4.595,
+        "avg_steps": 2.17,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\scout\\.pitstop\\runs\\1011-0949-b57c\\baseline.json",
+      "trace_ids": [
+        "786196a6dee31bb39c7468bcce8a07cd",
+        "e1766852991a96b899842c4bb12cff2d",
+        "7d1fad840e82e1297b575e28a95b5b8e",
+        "876ebebf83dfd386860bdaa842495019",
+        "ab6b6fc6448d102aa47ff6961da1085a",
+        "f545e99c10ac371912199e0850d34f50"
+      ]
+    },
+    {
+      "variant": "r1-1",
+      "summary": {
+        "run_id": "1011-0949-b57c",
+        "variant": "r1-1",
+        "model": "claude-haiku",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 4,
+        "pass_rate": 0.667,
+        "total_tokens": 45667,
+        "cost_usd": 0.055907,
+        "avg_latency_s": 4.333,
+        "avg_steps": 2.17,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\scout\\.pitstop\\runs\\1011-0949-b57c\\r1-1.json",
+      "trace_ids": [
+        "26922cda3aa4d101c257666145506b13",
+        "1050ecc6075e901b68e3ae3187e1f7f5",
+        "a2116e7cd24191844ffdd454fa4eeb23",
+        "5b4c991baa13fd0e5dc33cba409ae5c3",
+        "1dd6f86b303591224c32df95243acb68",
+        "f5c3f19354dc56537365c985e4f8d9bd"
+      ]
+    },
+    {
+      "variant": "r2-2",
+      "summary": {
+        "run_id": "1011-0949-b57c",
+        "variant": "r2-2",
+        "model": "claude-haiku",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 3,
+        "pass_rate": 0.5,
+        "total_tokens": 15579,
+        "cost_usd": 0.025463,
+        "avg_latency_s": 3.633,
+        "avg_steps": 2.0,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\scout\\.pitstop\\runs\\1011-0949-b57c\\r2-2.json",
+      "trace_ids": [
+        "015a5b367db43e11263aa304d5b19e65",
+        "8dfd081deb9e1472efe52e7a836365c0",
+        "b732b2ce5dc9547a27b159c064c2567d",
+        "60b12ce9eec904df75086f694cc8ca77",
+        "116bbf27a9da38babc7a891839e217a3",
+        "e8cbc8cc7892b8a3580da9d06810b32a"
+      ]
+    },
+    {
+      "variant": "r2-3",
+      "summary": {
+        "run_id": "1011-0949-b57c",
+        "variant": "r2-3",
+        "model": "claude-haiku",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 5,
+        "pass_rate": 0.833,
+        "total_tokens": 45677,
+        "cost_usd": 0.054989,
+        "avg_latency_s": 4.166,
+        "avg_steps": 2.17,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\scout\\.pitstop\\runs\\1011-0949-b57c\\r2-3.json",
+      "trace_ids": [
+        "9b5844962be173666e95d43c30a9bcd0",
+        "d0f741bc93fcd345ad3dcb7908dab656",
+        "760e47af05012f54878de661fbd36cd8",
+        "0ee3ed1a7897b3c6ef768d9259b55cf2",
+        "0c564bbc8e5616669e4f6f5f1fbf544a",
+        "d9bbc72b29583bad5ca1d0837301f14e"
+      ]
+    },
+    {
+      "variant": "r3-4",
+      "summary": {
+        "run_id": "1011-0949-b57c",
+        "variant": "r3-4",
+        "model": "claude-haiku",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 6,
+        "pass_rate": 1.0,
+        "total_tokens": 15673,
+        "cost_usd": 0.024189,
+        "avg_latency_s": 3.092,
+        "avg_steps": 2.0,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\scout\\.pitstop\\runs\\1011-0949-b57c\\r3-4.json",
+      "trace_ids": [
+        "2ae1df035fbcb1a37f5f981ee29ad93a",
+        "f72164db668b499dd7f6a38087f7fa35",
+        "bf866e8c8d1889b1ffe1077cd12cee35",
+        "7c625516689dd4ca26479b1381a8fbad",
+        "fb8158952bb1ac8a365c313d0f7e7f77",
+        "b6fdd377bf34561b68f7bf874b5ede1a"
+      ]
+    }
+  ],
+  "attempts": [
+    {
+      "round": 1,
+      "title": "Agent returns raw markdown-fenced JSON string instead of parsed dict",
+      "hypothesis": {
+        "id": "h1",
+        "title": "Agent returns raw markdown-fenced JSON string instead of parsed dict",
+        "root_cause": "In agent.py line 43, `json.loads(message.content)` is called on the model's final text reply. The model wraps its JSON in a markdown code fence (` ```json\\n{...}\\n``` `), so `message.content` starts with ` ```json ` rather than `{`. `json.loads` then fails with `JSONDecodeError: Expecting value: line 1 column 1 (char 0)` because the first character is a backtick, not a JSON value. This is the direct cause of every `completed=false` failure across all 6 tasks.",
+        "evidence": [
+          "notion step 2 answer starts with '```json\\n{' not raw JSON",
+          "razorpay step 2 answer starts with '```json\\n{'",
+          "postman step 2 answer starts with '```json\\n{'",
+          "zerodha step 3 answer starts with '```json\\n{'",
+          "All tasks fail with: JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+          "neatlogs notion trace: agent_action scout.research status=ERROR error=json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+        ],
+        "files": [
+          "scout/agent.py",
+          "scout/prompts.py"
+        ],
+        "fix_plan": "Two complementary fixes: (1) In agent.py, after receiving `message.content`, strip markdown code fences before calling `json.loads`. Extract JSON by stripping leading/trailing whitespace, then if the content starts with ``` strip the first and last fence lines. Use a regex or simple string strip: `content = message.content.strip(); if content.startswith('```'): content = re.sub(r'^```[a-z]*\\n?', '', content).rstrip('`').rstrip()`. (2) Also update the SYSTEM prompt in prompts.py to explicitly say 'Do not wrap the JSON in markdown code fences. Output raw JSON only.' to reduce reliance on post-processing. Additionally, to fix the token budget failures for zerodha and notion, truncate people_search results in tools.py to return only the first N people (e.g. 5) to avoid 50k-char tool responses bloating the context.",
+        "expected_effect": "Fixing the JSON parsing will flip `completed`, `identity`, `grounded_numbers`, `grounded_people` checks for all 6 tasks. Truncating people_search output will fix `within_token_budget` for zerodha and notion (currently 16827 and 13578 tokens vs 8000 budget). All 6 tasks should pass.",
+        "confidence": 0.97
+      },
+      "outcome": "accepted",
+      "reason": "4 more task(s) pass",
+      "diff": "diff --git a/scout/agent.py b/scout/agent.py\nindex 98bec38..a73774e 100644\n--- a/scout/agent.py\n+++ b/scout/agent.py\n@@ -3,6 +3,7 @@\n from __future__ import annotations\n \n import json\n+import re\n \n import neatlogs\n \n@@ -39,5 +40,9 @@ def research(target: str, *, client, model: str) -> dict:\n                     {\"role\": \"tool\", \"tool_call_id\": call.id, \"content\": run_tool(call.function.name, call.function.arguments)}\n                 )\n             continue\n-        return json.loads(message.content)\n+        content = message.content.strip()\n+        if content.startswith(\"```\"):\n+            content = re.sub(r'^```[a-z]*\\n?', '', content)\n+            content = re.sub(r'\\n?```$', '', content).strip()\n+        return json.loads(content)\n     raise RuntimeError(f\"no answer after {MAX_STEPS} steps\")\ndiff --git a/scout/prompts.py b/scout/prompts.py\nindex 7245992..512f5a1 100644\n--- a/scout/prompts.py\n+++ b/scout/prompts.py\n@@ -1,7 +1,7 @@\n SYSTEM = \"\"\"You are Scout, a B2B company research agent.\n \n Given a company website, use your tools to research the company, then reply with\n-ONLY a JSON object in this shape:\n+ONLY a raw JSON object (no markdown, no code fences) in this shape:\n \n {\n   \"company\": \"<company name>\",\ndiff --git a/scout/tools.py b/scout/tools.py\nindex 4547815..44a72ac 100644\n--- a/scout/tools.py\n+++ b/scout/tools.py\n@@ -62,7 +62,8 @@ def company_lookup(domain: str) -> dict:\n \n @neatlogs.span(kind=\"TOOL\", tool_name=\"people_search\")\n def people_search(domain: str, titles: list[str] | None = None) -> list[dict]:\n-    return get_backend().people(domain, titles)\n+    results = get_backend().people(domain, titles)\n+    return results[:5]\n \n \n TOOLS = {\"company_lookup\": company_lookup, \"people_search\": people_search}",
+      "summary": "Strip markdown code fences from model JSON reply, add prompt instruction, and truncate people_search to 5 results",
+      "files": [
+        "scout/agent.py",
+        "scout/prompts.py",
+        "scout/tools.py"
+      ],
+      "deltas": {
+        "passed": [
+          0,
+          4
+        ],
+        "checks": [
+          4,
+          28
+        ],
+        "total_tokens": [
+          58873,
+          45667
+        ],
+        "cost_usd": [
+          0.069641,
+          0.055907
+        ],
+        "tool_errors": [
+          0,
+          0
+        ],
+        "avg_steps": [
+          2.17,
+          2.17
+        ]
+      },
+      "variant": "r1-1",
+      "after_failures": [
+        "stripe: used 10256 tokens, budget is 8000",
+        "zerodha: hallucinated total_funding_usd=0: the data source has no value"
+      ],
+      "commit": "597ffcd69e25d673fcfc2bd2fd1da8a2bdf855e5"
+    },
+    {
+      "round": 2,
+      "title": "people_search returns full rich profiles causing token overflow on stripe",
+      "hypothesis": {
+        "id": "h1",
+        "title": "people_search returns full rich profiles causing token overflow on stripe",
+        "root_cause": "The people_search tool returns full _full_profile dicts (with all_employers, skills, recent_posts, summary, etc.) for up to 5 people. For stripe.com the agent makes two people_search calls (first with title filter, then without), and the second unfiltered call returns 21186 chars of rich profile data that bloats the context to 10256 tokens, exceeding the 8000-token budget. The fix is to strip the rich profile fields down to only what the agent needs (name, title, current_company, linkedin_profile_url) before returning them to the model.",
+        "evidence": [
+          "task stripe: step 3 shows people_search({\"domain\": \"stripe.com\"}) returned 21186 chars, pushing total tokens to 10256 vs budget 8000",
+          "neatlogs trace: tool_call people_search output_chars=20602, second llm call tokens=7147",
+          "tools.py:64-66: people_search returns results[:5] but each result is a full _full_profile dict with skills (20 items), all_employers (5 entries with 24-word descriptions), recent_posts (3 posts with 30-word texts), and a 6-sentence summary"
+        ],
+        "files": [
+          "scout/tools.py"
+        ],
+        "fix_plan": "In the people_search function in tools.py, after slicing results[:5], map each result to a minimal dict containing only the fields the agent needs: name, title, current_company, and linkedin_profile_url. This eliminates the bulk of the token usage from rich profile data while preserving all information needed for grounded_people checks.",
+        "expected_effect": "stripe task should drop well under 8000 tokens (the second people_search call will shrink from ~21000 chars to ~500 chars), fixing the within_token_budget check. The grounded_people check should remain passing since name and title are preserved. No regression expected on passing tasks since they already pass with fewer steps.",
+        "confidence": 0.95
+      },
+      "outcome": "rejected",
+      "reason": "regressed previously passing tasks: ['razorpay']",
+      "diff": "diff --git a/scout/tools.py b/scout/tools.py\nindex 44a72ac..c36befa 100644\n--- a/scout/tools.py\n+++ b/scout/tools.py\n@@ -63,7 +63,15 @@ def company_lookup(domain: str) -> dict:\n @neatlogs.span(kind=\"TOOL\", tool_name=\"people_search\")\n def people_search(domain: str, titles: list[str] | None = None) -> list[dict]:\n     results = get_backend().people(domain, titles)\n-    return results[:5]\n+    return [\n+        {\n+            \"name\": r.get(\"full_name\"),\n+            \"title\": r.get(\"title\"),\n+            \"current_company\": r.get(\"company\"),\n+            \"linkedin_profile_url\": r.get(\"linkedin_profile_url\"),\n+        }\n+        for r in results[:5]\n+    ]\n \n \n TOOLS = {\"company_lookup\": company_lookup, \"people_search\": people_search}",
+      "summary": "Strip people_search results to minimal fields to prevent token overflow",
+      "files": [
+        "scout/tools.py"
+      ],
+      "deltas": {
+        "passed": [
+          4,
+          3
+        ],
+        "checks": [
+          28,
+          21
+        ],
+        "total_tokens": [
+          45667,
+          15579
+        ],
+        "cost_usd": [
+          0.055907,
+          0.025463
+        ],
+        "tool_errors": [
+          0,
+          0
+        ],
+        "avg_steps": [
+          2.17,
+          2.0
+        ]
+      },
+      "variant": "r2-2",
+      "after_failures": [
+        "stripe: key_people not in data source: ['Patrick Collison', 'John Collison', 'Claire Cockerton', 'Will Gaybrick']",
+        "zerodha: no usable brief: JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "razorpay: no usable brief: JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
+    },
+    {
+      "round": 2,
+      "title": "System prompt instructs agent to never leave total_funding_usd null, causing hallucination of 0 for zerodha",
+      "hypothesis": {
+        "id": "h2",
+        "title": "System prompt instructs agent to never leave total_funding_usd null, causing hallucination of 0 for zerodha",
+        "root_cause": "The system prompt says 'Every field is required. Never leave a field empty or null.' When company_lookup returns total_funding_usd=null for zerodha (a bootstrapped company with no funding data), the model obeys the 'never null' instruction and substitutes 0 instead of omitting or passing null. The eval then flags this as hallucination: 'hallucinated total_funding_usd=0: the data source has no value'.",
+        "evidence": [
+          "task zerodha: company_lookup returned 'total_funding_usd\": null' (visible in step 2 tool result excerpt)",
+          "task zerodha failure: 'hallucinated total_funding_usd=0: the data source has no value'",
+          "prompts.py:13: 'Every field is required. Never leave a field empty or null.'"
+        ],
+        "files": [
+          "scout/prompts.py"
+        ],
+        "fix_plan": "Amend the system prompt to clarify that numeric fields should use null (JSON null) when the data source returns no value, rather than substituting 0 or any other placeholder. Change the instruction to something like: 'Use null for numeric fields when the data source provides no value. Never invent or estimate numbers.'",
+        "expected_effect": "zerodha grounded_numbers check should flip from False to True. No regression on passing tasks since they all have non-null funding data.",
+        "confidence": 0.92
+      },
+      "outcome": "accepted",
+      "reason": "1 more task(s) pass",
+      "diff": "diff --git a/scout/prompts.py b/scout/prompts.py\nindex 512f5a1..ad625c6 100644\n--- a/scout/prompts.py\n+++ b/scout/prompts.py\n@@ -14,7 +14,7 @@ ONLY a raw JSON object (no markdown, no code fences) in this shape:\n   \"summary\": \"<two sentences>\"\n }\n \n-Every field is required. Never leave a field empty or null.\n+For numeric fields (headcount, total_funding_usd, founded_year), use JSON null when the data source provides no value. Never invent or estimate numbers.\n key_people should list up to 5 senior leaders.\"\"\"\n \n USER = \"Research this company: {target}\"",
+      "summary": "Allow null for numeric fields when data source has no value to prevent hallucination of 0",
+      "files": [
+        "scout/prompts.py"
+      ],
+      "deltas": {
+        "passed": [
+          4,
+          5
+        ],
+        "checks": [
+          28,
+          29
+        ],
+        "total_tokens": [
+          45667,
+          45677
+        ],
+        "cost_usd": [
+          0.055907,
+          0.054989
+        ],
+        "tool_errors": [
+          0,
+          0
+        ],
+        "avg_steps": [
+          2.17,
+          2.17
+        ]
+      },
+      "variant": "r2-3",
+      "after_failures": [
+        "stripe: used 10291 tokens, budget is 8000"
+      ],
+      "commit": "df1a0a8ca97bdee8f4bc34962b62e63b9c215203"
+    },
+    {
+      "round": 3,
+      "title": "people_search returns massive rich profiles; second unfiltered call blows token budget for stripe",
+      "hypothesis": {
+        "id": "h1",
+        "title": "people_search returns massive rich profiles; second unfiltered call blows token budget for stripe",
+        "root_cause": "The people_search tool returns full rich profiles from _full_profile() which include summary, skills (20 items), all_employers (5 jobs with 24-word descriptions each), education, languages, recent_posts (3 posts \u00d7 30 words), etc. The stripe agent makes a second people_search call without title filters, returning 21186 chars of rich profile data. The round-2 rejected fix used r.get('full_name') but _full_profile() stores the key as 'name', so all names became None, causing grounded_people failures and JSONDecodeErrors on razorpay/zerodha. The correct fix is to slim profiles using the actual field names: 'name', 'title', 'current_company', 'linkedin_profile_url'.",
+        "evidence": [
+          "stripe step 3: people_search({\"domain\": \"stripe.com\"}) returned 21186 chars causing total tokens=10291 > budget 8000",
+          "round 2 rejected diff used r.get('full_name') but _full_profile() returns key 'name', causing empty names and JSONDecodeErrors on razorpay and zerodha",
+          "stripe step 2: first people_search with titles returned 4343 chars (acceptable), second call without filter returned 21186 chars (the problem)",
+          "_full_profile() in backends.py returns: summary (6 sentences), skills (20 items), all_employers (5 entries \u00d7 24-word descriptions), recent_posts (3 \u00d7 30 words) \u2014 all unnecessary for the brief"
+        ],
+        "files": [
+          "scout/tools.py"
+        ],
+        "fix_plan": "In people_search, slim each result to only the fields needed for key_people output, using the correct field names as returned by _full_profile(): 'name', 'title', 'current_company', 'linkedin_profile_url'. Replace `return results[:5]` with a list comprehension that picks only those four keys.",
+        "expected_effect": "stripe token count drops well below 8000 (21186 chars \u2192 ~200 chars per person \u00d7 5 = ~1000 chars), fixing the within_token_budget check. razorpay and zerodha remain passing because 'name' field is correctly preserved for grounded_people checks. All 6 tasks should pass.",
+        "confidence": 0.97
+      },
+      "outcome": "accepted",
+      "reason": "1 more task(s) pass",
+      "diff": "diff --git a/scout/tools.py b/scout/tools.py\nindex 44a72ac..9562fe2 100644\n--- a/scout/tools.py\n+++ b/scout/tools.py\n@@ -63,7 +63,15 @@ def company_lookup(domain: str) -> dict:\n @neatlogs.span(kind=\"TOOL\", tool_name=\"people_search\")\n def people_search(domain: str, titles: list[str] | None = None) -> list[dict]:\n     results = get_backend().people(domain, titles)\n-    return results[:5]\n+    return [\n+        {\n+            \"name\": r.get(\"name\"),\n+            \"title\": r.get(\"title\"),\n+            \"current_company\": r.get(\"current_company\"),\n+            \"linkedin_profile_url\": r.get(\"linkedin_profile_url\"),\n+        }\n+        for r in results[:5]\n+    ]\n \n \n TOOLS = {\"company_lookup\": company_lookup, \"people_search\": people_search}",
+      "summary": "slim people_search results to four fields using correct key names from _full_profile()",
+      "files": [
+        "scout/tools.py"
+      ],
+      "deltas": {
+        "passed": [
+          5,
+          6
+        ],
+        "checks": [
+          29,
+          30
+        ],
+        "total_tokens": [
+          45677,
+          15673
+        ],
+        "cost_usd": [
+          0.054989,
+          0.024189
+        ],
+        "tool_errors": [
+          0,
+          0
+        ],
+        "avg_steps": [
+          2.17,
+          2.0
+        ]
+      },
+      "variant": "r3-4",
+      "after_failures": [],
+      "commit": "71d0e4f71dcb2aee817fa1f2e7d759e540dbf286"
+    }
+  ],
+  "ledger": {
+    "spent_usd": 0.159153,
+    "calls": 7,
+    "tokens": 40007
+  },
+  "started": 1791692396.3409972,
+  "finished": 1791692903.8061862
+}
