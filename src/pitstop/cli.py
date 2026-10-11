@@ -124,8 +124,11 @@ class Narrator:
 
 
 def cmd_init_demo(args) -> int:
-    src = ROOT / "patients" / "scout"
-    dest = pathlib.Path(args.dest).resolve()
+    src = ROOT / "patients" / args.patient
+    if not (src / "pitstop.toml").exists():
+        console.print(f"[red]unknown patient {args.patient!r}[/] (available: {', '.join(sorted(p.name for p in (ROOT / 'patients').iterdir()))})")
+        return 1
+    dest = pathlib.Path(args.dest or ROOT / "sandbox" / args.patient).resolve()
     if dest.exists():
         if not args.force:
             console.print(f"[red]{dest} exists[/] (use --force to replace)")
@@ -134,9 +137,9 @@ def cmd_init_demo(args) -> int:
     shutil.copytree(src, dest, ignore=shutil.ignore_patterns("__pycache__", ".pitstop", ".pytest_cache"))
     (dest / ".gitignore").write_text(".pitstop/\n__pycache__/\n.pytest_cache/\n", encoding="utf-8")
     for cmd in (["git", "init", "-q", "-b", "main"], ["git", "config", "core.autocrlf", "false"], ["git", "add", "-A"],
-                ["git", "-c", "user.name=Scout", "-c", "user.email=scout@example.invalid", "commit", "-q", "-m", "Scout v0"]):
+                ["git", "-c", "user.name=pitstop-demo", "-c", "user.email=pitstop-demo@example.invalid", "commit", "-q", "-m", f"{args.patient} v0"]):
         subprocess.run(cmd, cwd=dest, check=True)
-    console.print(f"Scout patient ready at [bold]{dest}[/]")
+    console.print(f"{args.patient} patient ready at [bold]{dest}[/]")
     return 0
 
 
@@ -176,6 +179,8 @@ def cmd_heal(args) -> int:
                graph=graph if graph.enabled else None, emit=Narrator())
     report = write(run, ledger, pathlib.Path(args.reports), traces.reads, graph.searches)
     console.print(f"report: {report}")
+    if args.open_pr:
+        _open_pr(target.root, report)
     if traced:
         import neatlogs
 
@@ -187,6 +192,22 @@ def cmd_heal(args) -> int:
             f"Pitstop used its own run telemetry for those tasks.[/]"
         )
     return 0
+
+
+def _open_pr(repo: pathlib.Path, report: pathlib.Path) -> int:
+    from pitstop.github import PullRequestError, open_pr
+
+    try:
+        url = open_pr(pathlib.Path(repo), pathlib.Path(report))
+    except PullRequestError as exc:
+        console.print(f"[yellow]no PR opened:[/] {exc}")
+        return 1
+    console.print(f"pull request: [bold]{url}[/]")
+    return 0
+
+
+def cmd_pr(args) -> int:
+    return _open_pr(pathlib.Path(args.target).resolve(), pathlib.Path(args.report).resolve())
 
 
 def cmd_doctor(args) -> int:
@@ -218,8 +239,9 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="pitstop", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
 
-    p = sub.add_parser("init-demo", help="copy the Scout patient into a fresh git repo")
-    p.add_argument("--dest", default=str(ROOT / "sandbox" / "scout"))
+    p = sub.add_parser("init-demo", help="copy a demo patient agent into a fresh git repo")
+    p.add_argument("--patient", default="scout", help="scout or triage")
+    p.add_argument("--dest", help="default: sandbox/<patient>")
     p.add_argument("--force", action="store_true")
     p.set_defaults(fn=cmd_init_demo)
 
@@ -237,6 +259,12 @@ def main(argv=None) -> int:
             p.add_argument("--tries", type=int, default=2, help="hypotheses to try per round")
             p.add_argument("--budget", type=float, default=1.50, help="USD cap for Pitstop's own model calls")
             p.add_argument("--reports", default=str(ROOT / "reports"))
+            p.add_argument("--open-pr", action="store_true", help="push the fix branch and open a GitHub PR with the report")
+
+    p = sub.add_parser("pr", help="open a GitHub PR for a finished pit stop")
+    p.add_argument("--target", default=str(ROOT / "sandbox" / "scout"))
+    p.add_argument("--report", required=True, help="reports/pitstop-<run>.md")
+    p.set_defaults(fn=cmd_pr)
 
     p = sub.add_parser("doctor")
     p.add_argument("--ping", action="store_true")
