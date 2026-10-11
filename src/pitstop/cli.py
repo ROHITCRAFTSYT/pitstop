@@ -1,9 +1,10 @@
 """pitstop: an autonomous pit crew for AI agents.
 
-    pitstop init-demo                 # copy the Scout patient into sandbox/scout as a git repo
-    pitstop eval  --target sandbox/scout
-    pitstop heal  --target sandbox/scout --rounds 4 --budget 1.50
-    pitstop doctor
+    pitstop init-demo [--patient scout|triage]     # copy a demo agent into sandbox/<patient> as a git repo
+    pitstop eval  --target sandbox/scout           # run the agent's evals once
+    pitstop heal  --target sandbox/scout --rounds 4 --budget 1.50 [--open-pr]
+    pitstop pr    --target sandbox/scout --report reports/pitstop-<run>.md
+    pitstop doctor [--ping]                        # check keys, neatlogs, Entire
 """
 
 from __future__ import annotations
