@@ -1,0 +1,38 @@
+PS pitstop> entire graph search --repo sandbox/scout --profile full --format agent --top-k 1 --query "agent loop that raises JSONDecodeError when handling the model's final answer"
+Index: cache-hit (211ms) | Query: 192ms | Preselect: 236ms | Total: 641ms
+Coverage: notice (5 languages/14 files; 1 warning; 0 partial failures)
+- warning W_WORKTREE_SNAPSHOT
+VERIFY: python -m py_compile scout/agent.py
+  targets scout/agent.py (from build check only - no runnable test command derivable; this parses the file, it runs no tests) tier=build-check
+  run it ONCE after editing; if it fails, fix the code and re-run THIS command.
+  do not build an alternative test harness, hand-assemble a classpath, or re-verify by
+  reverting and reapplying the edit.
+1. scout/agent.py:16-43 research s=21.1 [focus:43]
+def research(target: str, *, client, model: str) -> dict:
+    messages = [
+        {"role": "system", "content": SYSTEM},
+        {"role": "user", "content": USER.format(target=target)},
+    ]
+    for _ in range(MAX_STEPS):
+        response = client.chat.completions.create(
+            model=model, messages=messages, tools=TOOL_SPECS, temperature=0
+        )
+        message = response.choices[0].message
+        if message.tool_calls:
+            messages.append(
+                {
+                    "role": "assistant",
+                    "content": message.content or "",
+                    "tool_calls": [
+                        {"id": c.id, "type": "function", "function": {"name": c.function.name, "arguments": c.function.arguments}}
+                        for c in message.tool_calls
+                    ],
+                }
+            )
+            for call in message.tool_calls:
+                messages.append(
+                    {"role": "tool", "tool_call_id": call.id, "content": run_tool(call.function.name, call.function.arguments)}
+                )
+            continue
+        return json.loads(message.content)
+    raise RuntimeError(f"no answer after {MAX_STEPS} steps")

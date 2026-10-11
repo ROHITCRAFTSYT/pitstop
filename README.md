@@ -24,6 +24,7 @@ Three rounds, three accepted fixes, each its own commit with the evidence that j
 3. **Invented numbers.** The prompt said "never leave a field null", so the model filled zerodha.com's missing funding with 0. Pitstop allowed null for unknown values (5 → 6).
 
 Pitstop spent $0.21 (7 model calls), read 9 neatlogs traces back and ran 7 Entire Graph searches.
+Screenshots of the before/after traces, the Entire checkpoint and the cfo.ai model: [docs/evidence/](docs/evidence/).
 
 ## How it works
 
@@ -111,7 +112,7 @@ Your eval command must write JSON with a `summary` (`tasks`, `passed`,
 | **neatlogs** | Every Scout run and every Pitstop step is traced (`neatlogs.wrap`, `@neatlogs.span`, `neatlogs.log`). Pitstop reads each failing trace back through the neatlogs trace API (project key: spans, errors, tokens and neatlogs' own detections) as diagnosis evidence. Before/after trace ids go in each commit and report. |
 | **Entire** | Inside the agent: Pitstop uses Entire Graph (`entire graph search`) to localize each failure to candidate fix sites before diagnosing. Building the agent: the repo is Entire-enabled for Claude Code (sessions captured as checkpoints linked to commits) and Graph-enabled (`AGENTS.md`/`CLAUDE.md` point coding agents at `entire graph search`). |
 | **cfo.ai** | Ari (cfo.ai's AI CFO) built Pitstop's 12-month model: pricing, unit economics, forecast, burn, runway and 12 sensitivity scenarios. Headline: $10k runs out in month 3, ~$28.5k bridge needed at $49; don't price Team at $29; $79 breaks even within the year. [Live model](https://cfo.ai/s/W2RB_otvpzPIaBn6) · [`docs/business-plan.md`](docs/business-plan.md) |
-| **Crustdata** | Scout's live data source (`SCOUT_DATA=live`). |
+| **Crustdata** | Scout's data model mirrors Crustdata's company and people records. The live backend (`SCOUT_DATA=live`) is written but untested; all runs use the offline fixtures. |
 | **LiteLLM (hackathon proxy)** | All model calls: `claude-haiku` for Scout, `claude-sonnet-4.6` for Pitstop. |
 
 ## Layout
