@@ -37,7 +37,7 @@ def task_digest(task: dict, trace_summary: str | None = None) -> str:
     return "\n".join(lines)
 
 
-def build(results: dict, traces: "NeatlogsTraces | None" = None) -> str:
+def build(results: dict, traces: NeatlogsTraces | None = None) -> str:
     """Evidence for the failing tasks (worst first), plus the run summary."""
     tasks = sorted(results["tasks"], key=lambda t: (t["passed"], -len(t["failures"]), -t["total_tokens"]))
     failing = [t for t in tasks if not t["passed"]][:MAX_TASKS]

@@ -1,9 +1,6 @@
 """End-to-end pit stop on the Scout patient with scripted models and no network."""
 
 import json
-import os
-import shutil
-import subprocess
 import sys
 from types import SimpleNamespace
 

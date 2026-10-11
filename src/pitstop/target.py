@@ -125,7 +125,7 @@ class Target:
     def ensure_clean(self) -> None:
         dirty = [line for line in self.git("status", "--porcelain").splitlines() if ".pitstop" not in line]
         if dirty:
-            raise RuntimeError(f"target has uncommitted changes:\n" + "\n".join(dirty))
+            raise RuntimeError("target has uncommitted changes:\n" + "\n".join(dirty))
 
     def start_branch(self, run_id: str) -> str:
         branch = f"pitstop/{run_id}"

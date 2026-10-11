@@ -26,3 +26,16 @@ packages = ["src/pitstop"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py311"
+extend-exclude = ["sandbox", ".scratch"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# The live Crustdata backend is a process-wide singleton; caching on its methods is intended.
+"patients/scout/scout/backends.py" = ["B019"]
