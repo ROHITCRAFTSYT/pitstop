@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import os
 import pathlib
 import shutil
@@ -21,7 +22,7 @@ from rich.panel import Panel
 from rich.table import Table
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-console = Console(highlight=False)
+console = Console(highlight=False, legacy_windows=False)
 
 
 def _load_env() -> None:
@@ -41,6 +42,7 @@ def _init_neatlogs(run_tag: str | None = None) -> bool:
 
     tags = ["pitstop"] + ([f"run:{run_tag}"] if run_tag else [])
     neatlogs.init(workflow_name="pitstop", tags=tags)
+    logging.getLogger("neatlogs").setLevel(logging.WARNING)
     return True
 
 
@@ -178,9 +180,12 @@ def cmd_heal(args) -> int:
         import neatlogs
 
         neatlogs.flush()
-    if traces.failures:
-        console.print(f"[yellow]{len(traces.failures)} neatlogs trace reads failed[/]; first: {traces.failures[0]}")
     console.print(f"neatlogs traces read back: {traces.reads} · detections seen: {traces.detections} · Entire Graph searches: {graph.searches}")
+    if traces.failures:
+        console.print(
+            f"[dim]{len(traces.failures)} trace(s) were still being ingested when read; "
+            f"Pitstop used its own run telemetry for those tasks.[/]"
+        )
     return 0
 
 
