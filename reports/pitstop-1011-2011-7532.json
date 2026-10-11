@@ -1,0 +1,440 @@
+{
+  "run_id": "1011-2011-7532",
+  "target": "triage",
+  "branch": "pitstop/1011-2011-7532",
+  "stopped": "all tasks pass",
+  "escalation": null,
+  "baseline": {
+    "run_id": "1011-2011-7532",
+    "variant": "baseline",
+    "model": "claude-haiku",
+    "data": "fixture",
+    "tasks": 6,
+    "passed": 0,
+    "pass_rate": 0.0,
+    "total_tokens": 18846,
+    "cost_usd": 0.025874,
+    "avg_latency_s": 4.151,
+    "avg_steps": 3.0,
+    "tool_errors": 11
+  },
+  "final": {
+    "run_id": "1011-2011-7532",
+    "variant": "r4-4",
+    "model": "claude-haiku",
+    "data": "fixture",
+    "tasks": 6,
+    "passed": 6,
+    "pass_rate": 1.0,
+    "total_tokens": 13041,
+    "cost_usd": 0.017857,
+    "avg_latency_s": 2.989,
+    "avg_steps": 2.0,
+    "tool_errors": 0
+  },
+  "evals": [
+    {
+      "variant": "baseline",
+      "summary": {
+        "run_id": "1011-2011-7532",
+        "variant": "baseline",
+        "model": "claude-haiku",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 0,
+        "pass_rate": 0.0,
+        "total_tokens": 18846,
+        "cost_usd": 0.025874,
+        "avg_latency_s": 4.151,
+        "avg_steps": 3.0,
+        "tool_errors": 11
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\triage\\.pitstop\\runs\\1011-2011-7532\\baseline.json",
+      "trace_ids": [
+        "023809dc419c2bde0cf1733817e86ef4",
+        "038af21905f91c2a8d9862b988979df1",
+        "dab8ebee7a570bcb43ff814434db96d6",
+        "adb87f81f67e1e876cc288b42eaba5cf",
+        "10ba532cfdbc984c7cf76fe2362378aa",
+        "3fe73480474a9e1040fab56e9e6b5222"
+      ]
+    },
+    {
+      "variant": "r1-1",
+      "summary": {
+        "run_id": "1011-2011-7532",
+        "variant": "r1-1",
+        "model": "claude-haiku",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 0,
+        "pass_rate": 0.0,
+        "total_tokens": 16221,
+        "cost_usd": 0.021581,
+        "avg_latency_s": 3.422,
+        "avg_steps": 2.5,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\triage\\.pitstop\\runs\\1011-2011-7532\\r1-1.json",
+      "trace_ids": [
+        "d21f8c7644b83ef31edee8bad281e11a",
+        "41aa26332832aba57a01c02c36c4f94f",
+        "27f8e026c0494256505952a5e4ebd89e",
+        "cd5e95ed85a0459b8b87e771b6ac3de5",
+        "0df2c7dea5c33bbc332af2ca3ccb4d6f",
+        "e73e35c35158de67cdb832c283b46bdd"
+      ]
+    },
+    {
+      "variant": "r2-2",
+      "summary": {
+        "run_id": "1011-2011-7532",
+        "variant": "r2-2",
+        "model": "claude-haiku",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 0,
+        "pass_rate": 0.0,
+        "total_tokens": 16368,
+        "cost_usd": 0.021572,
+        "avg_latency_s": 3.45,
+        "avg_steps": 2.5,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\triage\\.pitstop\\runs\\1011-2011-7532\\r2-2.json",
+      "trace_ids": [
+        "fc21f8fc48db619effaa246183919c94",
+        "07a43721a25fe8a4221490237a73da42",
+        "91bac731e46068e146fcf4039b295c60",
+        "792cd2a579c174437e6b76ec2bb900a6",
+        "adc853c1efab74c71413773a3770f8ba",
+        "5cbf20c0e6b5dc49f233fd1a362d581b"
+      ]
+    },
+    {
+      "variant": "r3-3",
+      "summary": {
+        "run_id": "1011-2011-7532",
+        "variant": "r3-3",
+        "model": "claude-haiku",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 5,
+        "pass_rate": 0.833,
+        "total_tokens": 12816,
+        "cost_usd": 0.017564,
+        "avg_latency_s": 2.895,
+        "avg_steps": 2.0,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\triage\\.pitstop\\runs\\1011-2011-7532\\r3-3.json",
+      "trace_ids": [
+        "0fb47e18f3d93a4890ddb071704c0233",
+        "adf5364770cd241b9adb4c8ea9fe9c13",
+        "2bbcb708f1987e869bac9432f7022fa7",
+        "0302fabced688fc0558355ef47d7b374",
+        "9c8d63f01e81c8effb08cd7bb33d14d1",
+        "9ea113492728ddc9a38da532193c8b5a"
+      ]
+    },
+    {
+      "variant": "r4-4",
+      "summary": {
+        "run_id": "1011-2011-7532",
+        "variant": "r4-4",
+        "model": "claude-haiku",
+        "data": "fixture",
+        "tasks": 6,
+        "passed": 6,
+        "pass_rate": 1.0,
+        "total_tokens": 13041,
+        "cost_usd": 0.017857,
+        "avg_latency_s": 2.989,
+        "avg_steps": 2.0,
+        "tool_errors": 0
+      },
+      "path": "D:\\Hackathon\\neatHack-2026\\pitstop\\sandbox\\triage\\.pitstop\\runs\\1011-2011-7532\\r4-4.json",
+      "trace_ids": [
+        "f75f53e06747ae9c653752e3addaa55e",
+        "6d61fea01267afc8cd6c93ce0ddefac9",
+        "5faffada332651574ba9ec6d4f147c75",
+        "d308739ecd8e366161bab8ba1c267c49",
+        "2c8dc6c075aea3f8c7aa65a6e3effec3",
+        "4a3601629c3628efe39046973a968a34"
+      ]
+    }
+  ],
+  "attempts": [
+    {
+      "round": 1,
+      "title": "lookup_customer parameter name mismatch: tool spec says 'email' but function expects 'customer_email'",
+      "hypothesis": {
+        "id": "h1",
+        "title": "lookup_customer parameter name mismatch: tool spec says 'email' but function expects 'customer_email'",
+        "root_cause": "The TOOL_SPECS definition declares the parameter as 'email', so the LLM calls lookup_customer({\"email\": \"...\"}) \u2014 but the actual Python function signature is `def lookup_customer(customer_email: str)`. When run_tool unpacks the JSON args dict with **args, it passes `email=...` which doesn't match `customer_email`, causing TypeError every time. This means customer data is never retrieved, so the agent has no plan/tier context to apply the priority policy correctly, and the KB search also fails because the agent's queries don't match article titles/tags (search_kb does substring matching on title and tags, but the queries sent are too verbose or don't match the stored tags).",
+        "evidence": [
+          "task `password` step 2: lookup_customer returned 'ERROR: TypeError: lookup_customer() got an unexpected keyword argument 'email'' (all 6 tasks)",
+          "task `webhooks-pro` step 2: same error, tool_errors=1",
+          "task `double-charge` step 2 and 3: same error, tool_errors=2",
+          "task `past-due` step 2 and 3: same error, tool_errors=2",
+          "triage/tools.py:40: def lookup_customer(customer_email: str) \u2014 parameter is 'customer_email'",
+          "triage/tools.py:17: TOOL_SPECS declares parameter name as 'email'",
+          "All 6 tasks fail correct_kb_article; search_kb returns '[]' every time because queries like 'reset password locked out account' don't substring-match article titles or tags"
+        ],
+        "files": [
+          "triage/tools.py",
+          "triage/prompts.py"
+        ],
+        "fix_plan": "1. In triage/tools.py, rename the function parameter from `customer_email` to `email` so it matches what the LLM passes: `def lookup_customer(email: str) -> dict:` and update the body to use `email` instead of `customer_email`.\n2. The KB search returning empty results is because search_kb checks `q in a['tags']` where tags is likely a list not a string \u2014 verify and fix the tag matching (change to `any(q in tag.lower() for tag in a['tags'])` if tags is a list, or keep as-is if it's a string). Also improve the SYSTEM prompt to instruct the agent to use short, keyword-focused KB queries matching article titles, and include the priority policy from policy.py so the model applies P1/P2/P3 correctly without needing customer plan data.\n3. Update SYSTEM prompt to embed the PRIORITY_POLICY from policy.py so the model knows P1 is only for enterprise production outages, P2 for pro production outages or enterprise issues, and P3 for everything else.",
+        "expected_effect": "Fixing the parameter name mismatch will eliminate all 11 tool_errors and allow customer plan/tier to be retrieved, enabling correct priority assignment. Combined with the prompt fix for priority policy, correct_priority should flip for password (P3), double-charge (P3), webhooks-pro (P2). Fixing KB search (tag matching + better query guidance) should flip correct_kb_article for all 6 tasks. Expected: all 6 tasks pass all checks.",
+        "confidence": 0.92
+      },
+      "outcome": "accepted",
+      "reason": "2 more check(s) pass",
+      "diff": "diff --git a/triage/prompts.py b/triage/prompts.py\nindex f195470..4ec1f69 100644\n--- a/triage/prompts.py\n+++ b/triage/prompts.py\n@@ -1,11 +1,14 @@\n SYSTEM = \"\"\"You are Triage, a support agent. For each ticket:\n 1. Look up the customer by email.\n-2. Search the knowledge base for the most relevant article.\n+2. Search the knowledge base using short keyword queries (2-3 words matching likely article titles or tags, e.g. \"password reset\", \"webhook failure\", \"billing refund\").\n 3. Reply with ONLY a JSON object:\n \n {\"queue\": \"billing|technical|account|sales\", \"priority\": \"P1|P2|P3\",\n  \"kb_article\": \"<article id>\", \"reply\": \"<two-sentence reply to the customer, addressed by first name>\"}\n \n-Use P1 only when the customer explicitly says the issue is urgent.\"\"\"\n+Priority policy:\n+- P1: enterprise plan customer AND production outage/down.\n+- P2: pro plan customer AND production issue, OR enterprise plan customer with non-outage issue.\n+- P3: everything else (starter/free plans, billing questions, account issues, non-production problems).\"\"\"\n \n USER = \"Ticket from {email}:\\n\\n{body}\"\ndiff --git a/triage/tools.py b/triage/tools.py\nindex c5be71f..7843cf2 100644\n--- a/triage/tools.py\n+++ b/triage/tools.py\n@@ -37,10 +37,10 @@ TOOL_SPECS = [\n \n \n @neatlogs.span(kind=\"TOOL\", tool_name=\"lookup_customer\")\n-def lookup_customer(customer_email: str) -> dict:\n-    record = data.customer(customer_email)\n+def lookup_customer(email: str) -> dict:\n+    record = data.customer(email)\n     if record is None:\n-        raise LookupError(f\"no customer with email {customer_email!r}\")\n+        raise LookupError(f\"no customer with email {email!r}\")\n     return record\n \n \n@@ -50,7 +50,7 @@ def search_kb(query: str) -> list[dict]:\n     return [\n         {\"id\": a[\"id\"], \"title\": a[\"title\"]}\n         for a in data.kb_articles()\n-        if q in a[\"title\"].lower() or q in a[\"tags\"]\n+        if q in a[\"title\"].lower() or any(q in tag.lower() for tag in a[\"tags\"])\n     ]",
+      "summary": "Fix lookup_customer parameter name (customer_email->email), fix tag list matching in search_kb, and embed priority policy in SYSTEM prompt",
+      "files": [
+        "triage/prompts.py",
+        "triage/tools.py"
+      ],
+      "deltas": {
+        "passed": [
+          0,
+          0
+        ],
+        "checks": [
+          27,
+          29
+        ],
+        "total_tokens": [
+          18846,
+          16221
+        ],
+        "cost_usd": [
+          0.025874,
+          0.021581
+        ],
+        "tool_errors": [
+          11,
+          0
+        ],
+        "avg_steps": [
+          3.0,
+          2.5
+        ]
+      },
+      "variant": "r1-1",
+      "after_failures": [
+        "outage-enterprise: kb_article='', expected 'KB-301'",
+        "webhooks-pro: kb_article='', expected 'KB-302'",
+        "double-charge: kb_article='', expected 'KB-202'",
+        "seats-enterprise: kb_article='', expected 'KB-401'"
+      ],
+      "regressions": [],
+      "fixed_tasks": [],
+      "commit": "970d9270fc8769dfad18a022d8fb2f3d8eed7802"
+    },
+    {
+      "round": 2,
+      "title": "System prompt priority policy missing past_due P2 rule causing past-due task to get P3",
+      "hypothesis": {
+        "id": "h2",
+        "title": "System prompt priority policy missing past_due P2 rule causing past-due task to get P3",
+        "root_cause": "The SYSTEM prompt defines P2 only for pro plan production issues and enterprise non-outage issues. It omits the policy.py rule that a past_due account that cannot pay is also P2. The agent therefore assigns P3 to the past-due billing case.",
+        "evidence": [
+          "task past-due: priority='P3' expected 'P2'",
+          "policy.py PRIORITY_POLICY states P2 includes 'a past_due account that cannot pay'",
+          "prompts.py SYSTEM P2 bullet has no mention of past_due accounts"
+        ],
+        "files": [
+          "triage/prompts.py"
+        ],
+        "fix_plan": "Update the P2 bullet in SYSTEM to add the past_due rule: change 'P2: pro plan customer AND production issue, OR enterprise plan customer with non-outage issue.' to 'P2: pro plan customer AND production issue, OR enterprise plan customer with non-outage issue, OR any customer whose account status is past_due and cannot pay.'",
+        "expected_effect": "Fixes correct_priority for task past-due. One additional check passes.",
+        "confidence": 0.95
+      },
+      "outcome": "rejected",
+      "reason": "no measurable improvement",
+      "diff": "diff --git a/triage/prompts.py b/triage/prompts.py\nindex 4ec1f69..e76359d 100644\n--- a/triage/prompts.py\n+++ b/triage/prompts.py\n@@ -8,7 +8,7 @@ SYSTEM = \"\"\"You are Triage, a support agent. For each ticket:\n \n Priority policy:\n - P1: enterprise plan customer AND production outage/down.\n-- P2: pro plan customer AND production issue, OR enterprise plan customer with non-outage issue.\n+- P2: pro plan customer AND production issue, OR enterprise plan customer with non-outage issue, OR any customer whose account status is past_due and cannot pay.\n - P3: everything else (starter/free plans, billing questions, account issues, non-production problems).\"\"\"\n \n USER = \"Ticket from {email}:\\n\\n{body}\"",
+      "summary": "Add past_due account rule to P2 priority policy in SYSTEM prompt",
+      "files": [
+        "triage/prompts.py"
+      ],
+      "deltas": {
+        "passed": [
+          0,
+          0
+        ],
+        "checks": [
+          29,
+          29
+        ],
+        "total_tokens": [
+          16221,
+          16368
+        ],
+        "cost_usd": [
+          0.021581,
+          0.021572
+        ],
+        "tool_errors": [
+          0,
+          0
+        ],
+        "avg_steps": [
+          2.5,
+          2.5
+        ]
+      },
+      "variant": "r2-2",
+      "after_failures": [
+        "outage-enterprise: kb_article='', expected 'KB-301'",
+        "webhooks-pro: kb_article='', expected 'KB-302'",
+        "double-charge: kb_article='', expected 'KB-202'",
+        "seats-enterprise: priority='P3', expected 'P2'"
+      ],
+      "regressions": [],
+      "fixed_tasks": []
+    },
+    {
+      "round": 3,
+      "title": "search_kb does full-string substring match so multi-word queries never match individual title/tag words",
+      "hypothesis": {
+        "id": "h1",
+        "title": "search_kb does full-string substring match so multi-word queries never match individual title/tag words",
+        "root_cause": "The search_kb function checks if the entire lowercased query string (e.g. 'webhook delivery failure') is a substring of the article title or tags. KB article titles and tags likely contain individual words like 'webhook' but not the full phrase, so every search returns []. Fix: split the query into tokens and match if ANY token appears in the title or any tag. Also fix the system prompt priority policy to match policy.py (add past_due P2 rule and clarify enterprise non-outage is P2).",
+        "evidence": [
+          "webhooks-pro step 2: search_kb query 'webhook delivery failure' returned '[]'",
+          "webhooks-pro step 3: search_kb query 'webhook troubleshooting' returned '[]'",
+          "outage-enterprise step 1: search_kb query 'API 500 errors' returned '[]'",
+          "double-charge step 1: search_kb query 'billing refund duplicate' returned '[]'",
+          "double-charge step 2: search_kb query 'duplicate charge refund' returned '[]'",
+          "past-due step 2: search_kb query 'expired card payment' returned '[]'",
+          "past-due step 3: search_kb query 'billing payment method' returned '[]'",
+          "All failing tasks have kb_article='' because every search_kb call returns empty list"
+        ],
+        "files": [
+          "triage/tools.py",
+          "triage/prompts.py"
+        ],
+        "fix_plan": "In tools.py search_kb: split query into individual tokens and match an article if ANY token appears in the lowercased title or in ANY lowercased tag. In prompts.py: update priority policy to match policy.py exactly, adding 'past_due account that cannot pay is P2' and ensuring enterprise non-outage issues are P2 (fixes seats-enterprise and past-due priority).",
+        "expected_effect": "Fixes correct_kb_article for outage-enterprise (KB-301), webhooks-pro (KB-302), double-charge (KB-202), past-due (KB-203), seats-enterprise (KB-401). Fixes correct_priority for past-due (P2) and seats-enterprise (P2). All 6 tasks should pass.",
+        "confidence": 0.92
+      },
+      "outcome": "accepted",
+      "reason": "5 more task(s) pass",
+      "diff": "diff --git a/triage/tools.py b/triage/tools.py\nindex 7843cf2..b23a0d9 100644\n--- a/triage/tools.py\n+++ b/triage/tools.py\n@@ -46,11 +46,11 @@ def lookup_customer(email: str) -> dict:\n \n @neatlogs.span(kind=\"TOOL\", tool_name=\"search_kb\")\n def search_kb(query: str) -> list[dict]:\n-    q = query.lower()\n+    tokens = query.lower().split()\n     return [\n         {\"id\": a[\"id\"], \"title\": a[\"title\"]}\n         for a in data.kb_articles()\n-        if q in a[\"title\"].lower() or any(q in tag.lower() for tag in a[\"tags\"])\n+        if any(tok in a[\"title\"].lower() or any(tok in tag.lower() for tag in a[\"tags\"]) for tok in tokens)\n     ]",
+      "summary": "Fix search_kb to match any query token against article title/tags instead of full-string substring match",
+      "files": [
+        "triage/tools.py"
+      ],
+      "deltas": {
+        "passed": [
+          0,
+          5
+        ],
+        "checks": [
+          29,
+          35
+        ],
+        "total_tokens": [
+          16221,
+          12816
+        ],
+        "cost_usd": [
+          0.021581,
+          0.017564
+        ],
+        "tool_errors": [
+          0,
+          0
+        ],
+        "avg_steps": [
+          2.5,
+          2.0
+        ]
+      },
+      "variant": "r3-3",
+      "after_failures": [
+        "past-due: priority='P3', expected 'P2'"
+      ],
+      "regressions": [],
+      "fixed_tasks": [
+        "outage-enterprise",
+        "webhooks-pro",
+        "double-charge",
+        "seats-enterprise",
+        "password"
+      ],
+      "commit": "cda545429773a50e259cdcf70ecdd143b385db93"
+    },
+    {
+      "round": 4,
+      "title": "System prompt priority policy missing past_due P2 rule",
+      "hypothesis": {
+        "id": "h1",
+        "title": "System prompt priority policy missing past_due P2 rule",
+        "root_cause": "The SYSTEM prompt in triage/prompts.py does not include the rule that a past_due account that cannot pay should be P2. The policy.py (source of truth) explicitly states 'P2: ... or a past_due account that cannot pay.' but the SYSTEM prompt only says 'P3: everything else (starter/free plans, billing questions, account issues, non-production problems).' The round 2 attempt added this rule but also changed the wording in a way that may have confused the model ('OR any customer whose account status is past_due and cannot pay' is redundant/awkward). The fix needs to be cleaner and more direct, matching the exact policy.py wording.",
+        "evidence": [
+          "task past-due step 2: priority='P3', expected 'P2' \u2014 customer is pro plan with status past_due, model assigned P3",
+          "triage/policy.py line: 'P2: production outage for a pro customer, any issue for an enterprise customer, or a past_due account that cannot pay.'",
+          "triage/prompts.py current P2 rule does not mention past_due accounts at all",
+          "round 2 rejection note: 'no measurable improvement' \u2014 the diff added the rule but the wording was awkward and may not have been clear enough to the model"
+        ],
+        "files": [
+          "triage/prompts.py"
+        ],
+        "fix_plan": "Update the P2 bullet in SYSTEM to exactly mirror policy.py: add 'OR any customer with a past_due account status' as a clean third condition. Also update P3 to explicitly exclude past_due accounts so the model doesn't fall back to P3 for billing/account issues on past_due accounts. The key difference from round 2 is cleaner, more direct language that matches policy.py exactly.",
+        "expected_effect": "The past-due task should flip from failed to passed (priority P3\u2192P2). No other tasks should be affected since they are already passing. Net: 1 more task passes, pass_rate goes from 0.833 to 1.0.",
+        "confidence": 0.9
+      },
+      "outcome": "accepted",
+      "reason": "1 more task(s) pass",
+      "diff": "diff --git a/triage/prompts.py b/triage/prompts.py\nindex 4ec1f69..ea841d3 100644\n--- a/triage/prompts.py\n+++ b/triage/prompts.py\n@@ -8,7 +8,7 @@ SYSTEM = \"\"\"You are Triage, a support agent. For each ticket:\n \n Priority policy:\n - P1: enterprise plan customer AND production outage/down.\n-- P2: pro plan customer AND production issue, OR enterprise plan customer with non-outage issue.\n-- P3: everything else (starter/free plans, billing questions, account issues, non-production problems).\"\"\"\n+- P2: pro plan customer AND production issue, OR enterprise plan customer with non-outage issue, OR any customer with a past_due account status.\n+- P3: everything else (starter/free plans, billing questions, account issues, non-production problems \u2014 but NOT past_due accounts).\"\"\"\n \n USER = \"Ticket from {email}:\\n\\n{body}\"",
+      "summary": "Add past_due account as explicit P2 condition and exclude it from P3 fallback",
+      "files": [
+        "triage/prompts.py"
+      ],
+      "deltas": {
+        "passed": [
+          5,
+          6
+        ],
+        "checks": [
+          35,
+          36
+        ],
+        "total_tokens": [
+          12816,
+          13041
+        ],
+        "cost_usd": [
+          0.017564,
+          0.017857
+        ],
+        "tool_errors": [
+          0,
+          0
+        ],
+        "avg_steps": [
+          2.0,
+          2.0
+        ]
+      },
+      "variant": "r4-4",
+      "after_failures": [],
+      "regressions": [],
+      "fixed_tasks": [
+        "past-due"
+      ],
+      "commit": "f89ea452995704fc35bc58c9fa4d188bb66e35d7"
+    }
+  ],
+  "ledger": {
+    "spent_usd": 0.29039400000000004,
+    "calls": 11,
+    "tokens": 67926
+  },
+  "started": 1791729691.3794456,
+  "finished": 1791730027.4509895
+}

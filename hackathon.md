@@ -48,10 +48,20 @@
 - Fix: diagnose/patch now see rejected diffs and the failures that remained, and an identical re-proposal is reverted without re-running evals. Run 4 (same setup): the guard fired 3 times and skipped those eval re-runs, but nova-pro still couldn't solve the fence bug (its patches produced invalid Python, which was rejected safely). Conclusion: fixer quality matters; Sonnet solved it first try in run 1. neatlogs detections started appearing (22 in run 4).
 - cfo.ai: Ari built a 4-page model plus 12 scenarios (docs/business-plan.md). Base case: $47k 12-month revenue, cash out in month 3, $28.5k bridge needed; Team at $29 is contribution-negative; $79 breaks even within the year. Ari's top risk, the true cost of one pit stop including failed patches, is something Pitstop's ledger already measures ($0.04–$0.21 in real runs).
 
+### 2026-10-11 (Sun), evening IST: second patient, PRs, escalation, hardening
+- Reviewed the project as a judge would. Biggest risk: Pitstop had only been shown on one agent we wrote. Added **Triage**, a support-ticket router with a different class of faults (tool schema vs. signature mismatch, whole-string KB search, prompt contradicting policy).
+- Triage run `1011-2004-41e9`: fixed the schema bug (0/6 → 5/6, tool errors 11 → 0), then rejected four prompt fixes in a row. Each fixed `double-charge` but broke `seats-enterprise`. Root cause was in *our* spec: the policy said enterprise tickets are P2 and also that sales enquiries are P3. Pitstop refused to trade one task for another. Added **escalation**: when consecutive fixes keep breaking the same passing tasks, Pitstop stops and reports a likely spec conflict for a human. Clarified the policy text.
+- Triage run `1011-2011-7532`: **0/6 → 6/6**, tokens −31%, tool errors 11 → 0, $0.29. Found all three seeded faults; one ineffective prompt patch was rejected and reverted along the way.
+- New: `pitstop heal --open-pr` / `pitstop pr` pushes the fix branch and opens a GitHub PR with the report. Real PR: https://github.com/ROHITCRAFTSYT/pitstop-demo-triage/pull/1
+- Hardening: Ctrl-C reverts any half-applied patch; ruff lint; CI on Linux and Windows across Python 3.11 to 3.13; LF line endings enforced (Windows had introduced CRLF).
+
 ## Evidence
 
 | What | Where |
 |---|---|
+| Second agent, 0/6 → 6/6 | [reports/pitstop-1011-2011-7532.md](reports/pitstop-1011-2011-7532.md) |
+| PR opened by Pitstop | https://github.com/ROHITCRAFTSYT/pitstop-demo-triage/pull/1 |
+| Refusing to trade tasks (spec conflict) | [reports/pitstop-1011-2004-41e9.md](reports/pitstop-1011-2004-41e9.md) |
 | Screenshots (neatlogs, Entire, cfo.ai) | [docs/evidence/](docs/evidence/) |
 | Screenshots (neatlogs, Entire, cfo.ai) | [docs/evidence/](docs/evidence/) |
 | Before/after pair (stripe task) | neatlogs traces `4f00c2edd726bf2405756cc32fd5bff8` → `3a6ac2bcdd16692d88b7e3755144d09b`; [report](reports/pitstop-1010-2320-db0d.md) |
