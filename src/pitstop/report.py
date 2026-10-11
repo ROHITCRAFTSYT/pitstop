@@ -29,6 +29,7 @@ def markdown(run: HealRun, ledger: Ledger, traces_used: int = 0, graph_searches:
         f"- Pitstop's own spend: ${ledger.spent_usd:.4f} over {ledger.calls} model calls ({ledger.tokens} tokens)",
         f"- neatlogs trace reads: {traces_used} · Entire Graph searches: {graph_searches}",
         "",
+        *( [f"> **Needs a human.** {run.escalation}", ""] if run.escalation else [] ),
         "## Before → after",
         "",
         "| metric | before | after |",
@@ -79,6 +80,7 @@ def write(run: HealRun, ledger: Ledger, out_dir: pathlib.Path, traces_used: int 
     md.write_text(markdown(run, ledger, traces_used, graph_searches), encoding="utf-8", newline="\n")
     payload = {
         "run_id": run.run_id, "target": run.target, "branch": run.branch, "stopped": run.stopped,
+        "escalation": run.escalation,
         "baseline": run.baseline["summary"], "final": run.final["summary"], "evals": run.evals,
         "attempts": run.attempts, "ledger": {"spent_usd": ledger.spent_usd, "calls": ledger.calls, "tokens": ledger.tokens},
         "started": run.started, "finished": run.finished,

@@ -21,6 +21,7 @@ class Verdict:
     accept: bool
     reason: str
     deltas: dict
+    regressions: list = field(default_factory=list)
 
 
 def _passing_checks(results: dict) -> int:
@@ -41,7 +42,7 @@ def compare(before: dict, after: dict) -> Verdict:
         "avg_steps": (b["avg_steps"], a["avg_steps"]),
     }
     if regressions:
-        return Verdict(False, f"regressed previously passing tasks: {regressions}", deltas)
+        return Verdict(False, f"regressed previously passing tasks: {regressions}", deltas, regressions)
     if a["passed"] > b["passed"]:
         return Verdict(True, f"{a['passed'] - b['passed']} more task(s) pass", deltas)
     token_cut = 1 - a["total_tokens"] / max(b["total_tokens"], 1)
@@ -52,6 +53,31 @@ def compare(before: dict, after: dict) -> Verdict:
     if checks_a == checks_b and token_cut >= 0.10:
         return Verdict(True, f"same results with {token_cut:.0%} fewer tokens", deltas)
     return Verdict(False, "no measurable improvement", deltas)
+
+
+ESCALATE_AFTER = 2
+
+
+def _conflict(attempts: list[dict]) -> str | None:
+    """Detect fixes that keep trading the same tasks against each other.
+
+    If the last ESCALATE_AFTER evaluated attempts were all rejected for breaking the
+    same previously-passing tasks, more patching won't help: the evals (or the spec
+    behind them) probably disagree, and a human should decide.
+    """
+    evaluated = [a for a in attempts if a.get("deltas")]
+    recent = evaluated[-ESCALATE_AFTER:]
+    if len(recent) < ESCALATE_AFTER or any(a["outcome"] == "accepted" for a in recent):
+        return None
+    broken = [tuple(sorted(a.get("regressions") or [])) for a in recent]
+    if not broken[0] or len(set(broken)) != 1:
+        return None
+    fixed = sorted({f.split(":")[0] for a in recent for f in a.get("fixed_tasks", [])})
+    return (
+        f"Every fix that makes {', '.join(fixed) or 'the failing tasks'} pass breaks {', '.join(broken[0])} "
+        f"({len(recent)} attempts in a row). The expected answers for these tasks likely conflict; "
+        "check the spec or eval labels before patching further."
+    )
 
 
 def _done(results: dict) -> bool:
@@ -68,6 +94,7 @@ class HealRun:
     attempts: list[dict] = field(default_factory=list)
     evals: list[dict] = field(default_factory=list)
     stopped: str = ""
+    escalation: str | None = None
     started: float = field(default_factory=time.time)
     finished: float | None = None
 
@@ -132,6 +159,12 @@ def heal(
                     break
             if not improved:
                 emit("stuck", round=round_no)
+                conflict = _conflict(run.attempts)
+                if conflict:
+                    run.escalation = conflict
+                    run.stopped = "escalated to a human: the requirements look contradictory"
+                    emit("escalated", conflict=conflict)
+                    break
         else:
             run.stopped = run.stopped or f"reached {max_rounds} rounds"
         if not run.stopped:
@@ -203,6 +236,9 @@ def _try(target: Target, llm: LLM, run: HealRun, current: dict, hypothesis: dict
     attempt["reason"] = verdict.reason
     attempt["variant"] = candidate["summary"]["variant"]
     attempt["after_failures"] = _remaining_failures(candidate)
+    attempt["regressions"] = verdict.regressions
+    was_failing = {t["id"] for t in current["tasks"] if not t["passed"]}
+    attempt["fixed_tasks"] = [t["id"] for t in candidate["tasks"] if t["id"] in was_failing and t["passed"]]
     if verdict.accept:
         attempt["outcome"] = "accepted"
         attempt["_results"] = candidate

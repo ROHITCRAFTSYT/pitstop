@@ -111,6 +111,9 @@ class Narrator:
         color = "green" if attempt["outcome"] == "accepted" else "red"
         console.print(f"  [{color}]{attempt['outcome'].upper()}[/]: {attempt['reason']}")
 
+    def on_escalated(self, conflict):
+        console.print(Panel(conflict, title="needs a human", style="magenta"))
+
     def on_stuck(self, round):
         console.print("  [yellow]no hypothesis improved the agent this round[/]")
 
