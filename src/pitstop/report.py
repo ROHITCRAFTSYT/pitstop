@@ -76,12 +76,12 @@ def markdown(run: HealRun, ledger: Ledger, traces_used: int = 0, graph_searches:
 def write(run: HealRun, ledger: Ledger, out_dir: pathlib.Path, traces_used: int = 0, graph_searches: int = 0) -> pathlib.Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     md = out_dir / f"pitstop-{run.run_id}.md"
-    md.write_text(markdown(run, ledger, traces_used, graph_searches), encoding="utf-8")
+    md.write_text(markdown(run, ledger, traces_used, graph_searches), encoding="utf-8", newline="\n")
     payload = {
         "run_id": run.run_id, "target": run.target, "branch": run.branch, "stopped": run.stopped,
         "baseline": run.baseline["summary"], "final": run.final["summary"], "evals": run.evals,
         "attempts": run.attempts, "ledger": {"spent_usd": ledger.spent_usd, "calls": ledger.calls, "tokens": ledger.tokens},
         "started": run.started, "finished": run.finished,
     }
-    (out_dir / f"pitstop-{run.run_id}.json").write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
+    (out_dir / f"pitstop-{run.run_id}.json").write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8", newline="\n")
     return md

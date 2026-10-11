@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import time
 import uuid
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Callable
 
 import neatlogs
 
@@ -138,6 +138,9 @@ def heal(
             run.stopped = "all tasks pass" if _done(current) else f"reached {max_rounds} rounds"
     except BudgetExceeded as exc:
         run.stopped = f"budget: {exc}"
+        target.revert()
+    except KeyboardInterrupt:
+        run.stopped = "interrupted"
         target.revert()
     run.final = current
     run.finished = time.time()
