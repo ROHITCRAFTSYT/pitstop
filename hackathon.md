@@ -71,7 +71,10 @@
 | cfo.ai plan | https://cfo.ai/s/W2RB_otvpzPIaBn6 · [docs/business-plan.md](docs/business-plan.md) |
 
 ## Demo
-2:18 narrated demo: https://x.com/6easap/status/2109287232049946961
+Narrated demo in the submission post: https://x.com/6easap/status/2109671705945972748
+
+## Submission
+Submitted 2026-10-12, ~9:45 PM IST: quote-tweet of the official launch post (tags @neatlogs @EntireHQ @arithecfo, demo video attached) plus the neatlogs.com/submission form. Submission ID 558faae8-789e-4ad9-9e76-79e964f2458b.
 
 ## Known limitations and next steps
 - If a trace isn't finalized within ~45s, Pitstop falls back to its own run telemetry for that task.
