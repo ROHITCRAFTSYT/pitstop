@@ -4,6 +4,19 @@ Screenshots from the neatlogs dashboard, entire.io and cfo.ai, captured 2026-10-
 The neatlogs project and the cfo.ai workspace are private to the team, so these
 images are how reviewers can see them.
 
+## neatlogs: what it caught, and the effect of the fixes
+
+neatlogs' daily digest for the project, after Pitstop's runs: **recorded request error rate
+improved from 45.4% to 24.3%**, and p95 latency from 5.76 s to 4.75 s.
+
+![neatlogs digest](neatlogs-digest-error-rate.jpg)
+
+The **Execution Failed** detection (negative, all spans with status ERROR) flagged the
+failing agent runs; its spike matches the broken Scout and Triage baselines. These are
+the incidents Pitstop reads back and resolves.
+
+![neatlogs detections](neatlogs-detections.jpg)
+
 ## neatlogs: the agent improved
 
 Same eval task (`stripe`) before and after the first real pit stop
