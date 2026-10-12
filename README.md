@@ -36,7 +36,7 @@ test `claude-haiku`, Pitstop `claude-sonnet-4.6`):
   trace API, detections included), Entire Graph localizes the bug, and cfo.ai's Ari planned the
   business ([live model](https://cfo.ai/s/W2RB_otvpzPIaBn6)). Screenshots: [docs/evidence/](docs/evidence/).
   Entire checkpoint: [`01M4KBB7SNC5AY5QCBG39ZXGMS`](https://entire.io/gh/ROHITCRAFTSYT/pitstop/commit/7e08edba996ee741b17848e3abad7e534df54c5c).
-- **Demo video (2:18, narrated):** [on X](https://x.com/6easap/status/2109287232049946961).
+- **Demo video (narrated):** [submission post on X](https://x.com/6easap/status/2109671705945972748). The live run in it is [this report](reports/pitstop-1011-1003-dca6.md).
 - **Try it without any keys:** `pip install -e . && pytest -q` runs full offline pit stops with
   scripted models. CI runs lint and tests on Linux and Windows, Python 3.11 to 3.13.
 
